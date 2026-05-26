@@ -60,6 +60,7 @@ const seedPosts = [
 let posts = loadPosts();
 let activeStatus = "published";
 let editingId = null;
+let lastEditorRange = null;
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -178,9 +179,19 @@ function setFeaturedImage(src = "", manual = false) {
 function insertImageHtml(src, alt = "") {
   const editor = getBodyEditor();
   if (!editor) return;
+  editor.focus();
   const selection = window.getSelection();
-  if (!selection || !selection.rangeCount) return;
-  const range = selection.getRangeAt(0);
+  if (!selection) return;
+  let range = selection.rangeCount ? selection.getRangeAt(0) : null;
+  if (!range || !editor.contains(range.commonAncestorContainer)) {
+    range = lastEditorRange?.cloneRange() || document.createRange();
+    if (!lastEditorRange || !editor.contains(range.commonAncestorContainer)) {
+      range.selectNodeContents(editor);
+      range.collapse(false);
+    }
+    selection.removeAllRanges();
+    selection.addRange(range);
+  }
   const figure = document.createElement("figure");
   figure.className = "editable-image";
   const img = document.createElement("img");
@@ -194,6 +205,15 @@ function insertImageHtml(src, alt = "") {
   paragraph.innerHTML = "<br>";
   figure.after(paragraph);
   selection.collapse(paragraph, 0);
+  lastEditorRange = selection.rangeCount ? selection.getRangeAt(0).cloneRange() : null;
+}
+
+function rememberEditorRange() {
+  const editor = getBodyEditor();
+  const selection = window.getSelection();
+  if (!editor || !selection || !selection.rangeCount) return;
+  const range = selection.getRangeAt(0);
+  if (editor.contains(range.commonAncestorContainer)) lastEditorRange = range.cloneRange();
 }
 
 function syncEditorBody() {
@@ -378,6 +398,8 @@ async function openEditor(post = null) {
   bodyEditor.innerHTML = bodyHtml;
   decorateBodyImages(bodyEditor);
   syncEditorBody();
+  lastEditorRange = null;
+  setPublishNote("");
   showEditor(true);
 }
 
@@ -476,6 +498,7 @@ function saveEditor(statusOverride = null) {
   else posts.unshift(post);
   savePosts();
   render();
+  setPublishNote("브라우저에 저장되었습니다. 공개 사이트 반영은 HTML 다운로드 후 GitHub 반영이 필요합니다.");
   return post;
 }
 
@@ -598,6 +621,9 @@ function bindEvents() {
   if (bodyEditor) {
     bodyEditor.addEventListener("input", syncEditorBody);
     bodyEditor.addEventListener("paste", handleEditorPaste);
+    bodyEditor.addEventListener("keyup", rememberEditorRange);
+    bodyEditor.addEventListener("mouseup", rememberEditorRange);
+    bodyEditor.addEventListener("focus", rememberEditorRange);
     bodyEditor.addEventListener("click", (event) => {
       if (!event.target.matches(".remove-image-button")) return;
       event.target.closest("figure.editable-image")?.remove();
@@ -644,11 +670,11 @@ function bindEvents() {
   $("[data-editor-form]").addEventListener("submit", (event) => {
     event.preventDefault();
     saveEditor();
-    showEditor(false);
   });
   $("[data-save-publish]").addEventListener("click", () => {
-    saveEditor("published");
-    showEditor(false);
+    const post = saveEditor("published");
+    download(`${post.slug}.html`, postToHtml(post), "text/html");
+    setPublishNote("발행용 HTML 파일을 다운로드했습니다. 이 파일을 GitHub의 같은 글 폴더 index.html에 반영해야 공개 사이트가 바뀝니다.");
   });
   $("[data-preview-post]").addEventListener("click", () => {
     const html = postToHtml(readEditor());
@@ -718,6 +744,11 @@ function bindEvents() {
       download(`${post.slug}.html`, postToHtml(post), "text/html");
     }
   });
+}
+
+function setPublishNote(message) {
+  const note = $("[data-publish-note]");
+  if (note) note.textContent = message;
 }
 
 function clean(value) {
