@@ -107,7 +107,18 @@
               <label>상태<select name="status"><option value="draft">임시저장</option><option value="scheduled">예약됨</option><option value="published">발행됨</option></select></label>
               <label>유형<select name="type"><option value="guide">가이드 글</option><option value="comparison">상품군 비교</option><option value="latest">최신 렌탈 가이드</option><option value="page">고정 페이지</option></select></label>
               <label>예약 시간<input type="datetime-local" name="scheduledAt"></label>
-              <input type="hidden" name="image">
+              <div class="full featured-image-editor">
+                <label>대표 이미지</label>
+                <div class="featured-image-preview" data-featured-image-preview></div>
+                <div class="editor-body-toolbar">
+                  <button class="secondary" type="button" data-set-featured-image>대표 이미지 파일 선택</button>
+                  <button class="secondary" type="button" data-use-first-body-image>첫 본문 이미지를 대표 이미지로 사용</button>
+                  <button class="secondary" type="button" data-clear-featured-image>대표 이미지 초기화</button>
+                  <input type="file" accept="image/*" data-featured-image-file hidden>
+                </div>
+                <p class="small">메인 화면 카드 이미지는 이 대표 이미지를 따라갑니다. 따로 지정하지 않으면 본문 첫 이미지가 사용됩니다.</p>
+              </div>
+              <input type="hidden" name="image" data-featured-image-value>
               <label class="full">메타 설명<input name="description" maxlength="160" placeholder="검색 결과에 표시될 설명"></label>
               <label class="full">요약 박스<textarea name="summary" placeholder="첫 문단에서 바로 답이 되도록 핵심 결론을 작성하세요."></textarea></label>
               <div class="full">

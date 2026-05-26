@@ -154,6 +154,27 @@ function extractFirstImage(html) {
   return doc.querySelector("img")?.getAttribute("src") || "";
 }
 
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (event) => resolve(event.target.result);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
+
+function setFeaturedImage(src = "", manual = false) {
+  const form = $("[data-editor-form]");
+  const input = $("[data-featured-image-value]");
+  const preview = $("[data-featured-image-preview]");
+  if (form) form.dataset.featuredImageManual = manual ? "true" : "false";
+  if (input) input.value = src;
+  if (!preview) return;
+  preview.innerHTML = src
+    ? `<img src="${escapeAttr(src)}" alt="대표 이미지 미리보기">`
+    : `<span>대표 이미지가 지정되지 않았습니다.</span>`;
+}
+
 function insertImageHtml(src, alt = "") {
   const editor = getBodyEditor();
   if (!editor) return;
@@ -195,6 +216,7 @@ function handleEditorPaste(event) {
     const reader = new FileReader();
     reader.onload = (loadEvent) => {
       insertImageHtml(loadEvent.target.result, file.name || "이미지");
+      if (!$("[data-featured-image-value]").value) setFeaturedImage(loadEvent.target.result, false);
       syncEditorBody();
     };
     reader.readAsDataURL(file);
@@ -331,6 +353,7 @@ async function openEditor(post = null) {
     faqs: [["", ""], ["", ""], ["", ""]]
   };
   const fields = form.elements;
+  form.dataset.featuredImageManual = "false";
   $("[data-editor-title]").textContent = post ? "글 수정" : "새 글 작성";
   $("[data-editor-source]").textContent = data.sourcePath ? `원본 경로: ${data.sourcePath}` : "새 글은 HTML 내보내기 후 배포 파일에 추가할 수 있습니다.";
   fields.id.value = data.id;
@@ -340,7 +363,7 @@ async function openEditor(post = null) {
   fields.type.value = data.type || "guide";
   fields.status.value = data.status;
   fields.scheduledAt.value = data.scheduledAt || "";
-  fields.image.value = data.image || "";
+  setFeaturedImage(data.image || "", false);
   fields.description.value = data.description || "";
   fields.summary.value = data.summary || "";
   fields.sourcePath.value = data.sourcePath || "";
@@ -422,6 +445,8 @@ function readEditor(statusOverride = null) {
   const slug = slugify(data.get("slug").trim() || title);
   const bodyHtml = syncEditorBody();
   const imageValue = data.get("image").trim();
+  const firstBodyImage = extractFirstImage(bodyHtml);
+  const imageWasSetManually = form.dataset.featuredImageManual === "true";
   return normalizePost({
     id: data.get("id") || slug,
     title,
@@ -431,7 +456,7 @@ function readEditor(statusOverride = null) {
     status: statusOverride || data.get("status"),
     scheduledAt: data.get("scheduledAt"),
     sourcePath: data.get("sourcePath"),
-    image: imageValue || extractFirstImage(bodyHtml),
+    image: imageWasSetManually ? (imageValue || firstBodyImage) : (firstBodyImage || imageValue),
     description: data.get("description").trim(),
     summary: data.get("summary").trim(),
     body: bodyHtml,
@@ -579,6 +604,28 @@ function bindEvents() {
       syncEditorBody();
     });
   }
+  $("[data-set-featured-image]").addEventListener("click", (event) => {
+    event.preventDefault();
+    $("[data-featured-image-file]").click();
+  });
+  $("[data-featured-image-file]").addEventListener("change", async (event) => {
+    const file = event.currentTarget.files?.[0];
+    if (file) setFeaturedImage(await readFileAsDataUrl(file), true);
+    event.currentTarget.value = "";
+  });
+  $("[data-use-first-body-image]").addEventListener("click", (event) => {
+    event.preventDefault();
+    const image = extractFirstImage(syncEditorBody());
+    if (!image) {
+      alert("본문에 이미지가 없습니다.");
+      return;
+    }
+    setFeaturedImage(image, true);
+  });
+  $("[data-clear-featured-image]").addEventListener("click", (event) => {
+    event.preventDefault();
+    setFeaturedImage("", false);
+  });
   $("[data-insert-image]").addEventListener("click", (event) => {
     event.preventDefault();
     $("[data-image-file-input]").click();
@@ -586,12 +633,11 @@ function bindEvents() {
   $("[data-image-file-input]").addEventListener("change", (event) => {
     const files = [...event.currentTarget.files];
     files.forEach((file) => {
-      const reader = new FileReader();
-      reader.onload = (loadEvent) => {
-        insertImageHtml(loadEvent.target.result, file.name || "이미지");
+      readFileAsDataUrl(file).then((src) => {
+        insertImageHtml(src, file.name || "이미지");
+        if (!$("[data-featured-image-value]").value) setFeaturedImage(src, false);
         syncEditorBody();
-      };
-      reader.readAsDataURL(file);
+      });
     });
     event.currentTarget.value = "";
   });

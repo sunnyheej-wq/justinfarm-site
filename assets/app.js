@@ -100,8 +100,34 @@ function buildArticleJsonLd() {
   });
 }
 
+async function syncHomeCardImages() {
+  if (location.pathname !== "/" && location.pathname !== "/index.html") return;
+  const cards = [...document.querySelectorAll(".product-card[href] img, .article-card[href] img")];
+  await Promise.all(cards.map(async (img) => {
+    const card = img.closest("a[href]");
+    const href = card?.getAttribute("href");
+    if (!href || href === "/compare/") return;
+    try {
+      const url = new URL(href, location.origin);
+      const response = await fetch(url.href, { cache: "no-store" });
+      if (!response.ok) return;
+      const html = await response.text();
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const featured = doc.querySelector("main .article-image img");
+      const src = featured?.getAttribute("src");
+      if (!src) return;
+      img.src = new URL(src, url.href).href;
+      const alt = featured.getAttribute("alt");
+      if (alt) img.alt = alt;
+    } catch (error) {
+      console.warn("메인 카드 이미지를 불러오지 못했습니다.", error);
+    }
+  }));
+}
+
 markPartnerLinks();
 enhanceFaq();
 buildBreadcrumbJsonLd();
 buildFaqJsonLd();
 buildArticleJsonLd();
+syncHomeCardImages();
