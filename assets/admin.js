@@ -378,7 +378,7 @@ async function openEditor(post = null) {
   fields.faq3q.value = data.faqs?.[2]?.[0] || "";
   fields.faq3a.value = data.faqs?.[2]?.[1] || "";
   const bodyEditor = getBodyEditor();
-  const bodyHtml = data.body ? formatBodyHtml(data.body) : "";
+  const bodyHtml = data.body || "";
   bodyEditor.innerHTML = bodyHtml;
   decorateBodyImages(bodyEditor);
   syncEditorBody();
@@ -399,7 +399,7 @@ async function hydratePost(post) {
       item.querySelector("summary")?.textContent.trim() || "",
       item.querySelector("p")?.textContent.trim() || ""
     ]).filter(([q, a]) => q && a);
-    const body = main ? mainToMarkdown(main) : post.body;
+    const body = main ? extractBodyHtml(main) : post.body;
     const hydrated = normalizePost({ ...post, title, description, image, summary, body, faqs, bodyLoaded: true });
     posts = posts.map((item) => item.id === post.id ? hydrated : item);
     savePosts();
@@ -408,6 +408,13 @@ async function hydratePost(post) {
     console.warn("원본 글을 불러오지 못했습니다.", error);
     return post;
   }
+}
+
+function extractBodyHtml(main) {
+  const skipSelectors = ".breadcrumb,.meta,.article-image,.evidence-box,.faq,.cta-banner,script";
+  const clone = main.cloneNode(true);
+  [...clone.querySelectorAll(skipSelectors)].forEach((node) => node.remove());
+  return clone.innerHTML.trim();
 }
 
 function mainToMarkdown(main) {
@@ -528,7 +535,7 @@ function postToHtml(post) {
       <p class="meta">${escapeHtml(post.category)} · ${post.updatedAt}</p>
       <figure class="article-image"><img src="${escapeAttr(featuredImage)}" alt="${escapeAttr(post.title)} 대표 이미지" width="1200" height="675" loading="eager" decoding="async"><figcaption>${escapeHtml(post.title)} 판단 기준을 정리한 대표 이미지 <span class="image-credit">사진: 공개 라이선스/스톡 이미지, 편집: 렌탈클리어</span></figcaption></figure>
       <div class="evidence-box"><h2>먼저 결론</h2><p>${escapeHtml(post.summary)}</p></div>
-      ${formatBodyHtml(post.body)}
+      ${post.body}
       <section class="faq"><h2>자주 묻는 질문</h2>${faqHtml}</section>
     </main>
     <script src="/assets/app.js"></script>
@@ -606,6 +613,22 @@ function bindEvents() {
       syncEditorBody();
     });
   }
+  $("[data-insert-image]").addEventListener("click", (event) => {
+    event.preventDefault();
+    $("[data-image-file-input]").click();
+  });
+  $("[data-image-file-input]").addEventListener("change", (event) => {
+    const files = [...event.currentTarget.files];
+    files.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (loadEvent) => {
+        insertImageHtml(loadEvent.target.result, file.name || "이미지");
+        syncEditorBody();
+      };
+      reader.readAsDataURL(file);
+    });
+    event.currentTarget.value = "";
+  });
   $("[data-editor-form]").addEventListener("submit", (event) => {
     event.preventDefault();
     saveEditor();

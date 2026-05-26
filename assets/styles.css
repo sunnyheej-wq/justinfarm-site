@@ -848,6 +848,38 @@ textarea {
   opacity: 1;
 }
 
+.editor-body-toolbar {
+  display: flex;
+  gap: 8px;
+  padding: 10px 0 14px;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.editor-body-toolbar button {
+  padding: 8px 12px;
+  font-size: 0.9em;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.editor-body-toolbar button:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.editor-body-toolbar .small {
+  margin: 0;
+  color: #64748b;
+  margin-left: auto;
+  font-style: italic;
+}
+
 .image-toolbox {
   display: grid;
   grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr) auto;
