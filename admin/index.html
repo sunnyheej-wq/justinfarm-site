@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>글 관리 | 렌탈클리어 Admin</title>
+    <meta name="robots" content="noindex,nofollow">
+    <link rel="stylesheet" href="/assets/styles.css">
+  </head>
+  <body class="admin-body">
+    <section class="admin-login" data-login>
+      <form class="login-card" data-login-form>
+        <a class="brand" href="/"><span class="brand-mark">R</span>렌탈클리어 Admin</a>
+        <h1>관리자 로그인</h1>
+        <p>글 작성, 수정, 발행 상태 관리를 위해 비밀번호를 입력하세요.</p>
+        <label>
+          비밀번호
+          <input type="password" name="password" placeholder="비밀번호 입력" autocomplete="current-password" required>
+        </label>
+        <button type="submit">로그인</button>
+        <p class="small" data-login-error hidden>비밀번호가 올바르지 않습니다.</p>
+      </form>
+    </section>
+
+    <div class="admin-app" data-admin-app hidden>
+      <header class="site-header">
+        <nav class="nav">
+          <a class="brand" href="/"><span class="brand-mark">R</span>렌탈클리어 Admin</a>
+          <div class="nav-links">
+            <a href="/">사이트 보기</a>
+            <a href="/blog/">블로그</a>
+            <button class="nav-cta" type="button" data-logout>로그아웃</button>
+          </div>
+        </nav>
+      </header>
+
+      <main class="post-admin">
+        <section class="admin-topbar">
+          <div class="status-tabs" data-status-tabs>
+            <button class="active" type="button" data-status="published">발행됨 <strong data-count="published">0</strong></button>
+            <button type="button" data-status="scheduled">예약됨 <strong data-count="scheduled">0</strong></button>
+            <button type="button" data-status="draft">임시저장 <strong data-count="draft">0</strong></button>
+            <button type="button" data-tab="images" style="margin-left: auto;">🖼️ 이미지 관리</button>
+          </div>
+          <p class="admin-page-count">총 <strong data-total-count>0</strong>개 · <span data-page-label>1/1 페이지</span></p>
+        </section>
+
+        <section class="admin-filter-panel" data-list-panel>
+          <div class="filter-grid">
+            <label>제목/본문 검색<input type="search" data-search placeholder="검색어를 입력하세요"></label>
+            <label>카테고리<select data-category-filter></select></label>
+            <label>표시 개수<select data-page-size><option>10</option><option>20</option><option selected>30</option></select></label>
+            <div class="filter-buttons">
+              <button type="button" data-apply>적용</button>
+              <button class="secondary" type="button" data-reset>초기화</button>
+              <button class="secondary" type="button" data-refresh>새로고침</button>
+            </div>
+            <label>선택 글 카테고리 변경<select data-bulk-category></select></label>
+            <button type="button" data-bulk-change>일괄 변경</button>
+          </div>
+          <div class="schedule-row">
+            <label>임시저장 글 순차 예약발행<input type="datetime-local" data-schedule-start></label>
+            <label>간격(분)<input type="number" min="1" value="30" data-schedule-gap></label>
+            <label>예약 수<input type="number" min="1" value="3" data-schedule-count></label>
+            <button type="button" data-schedule>순차 예약</button>
+          </div>
+          <div class="bulk-actions">
+            <button type="button" data-new-post>새 글 작성</button>
+            <button class="secondary" type="button" data-publish-selected>선택 글 즉시발행</button>
+            <button class="secondary" type="button" data-delete-selected>선택 글 삭제</button>
+            <button class="secondary" type="button" data-export-json>JSON 내보내기</button>
+            <button class="secondary" type="button" data-export-html>HTML 내보내기</button>
+          </div>
+        </section>
+
+        <section class="admin-table-wrap" data-list-panel>
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th><input type="checkbox" data-check-all></th>
+                <th>제목</th>
+                <th>상태</th>
+                <th>카테고리</th>
+                <th>유형</th>
+                <th>예약 시간</th>
+                <th>수정일</th>
+                <th>작업</th>
+              </tr>
+            </thead>
+            <tbody data-post-rows></tbody>
+          </table>
+        </section>
+
+        <section class="image-admin-panel" data-image-panel hidden>
+          <div class="image-admin-head">
+            <h2>홈페이지 이미지 관리</h2>
+            <p>홈페이지에 표시되는 상품 사진의 URL을 변경할 수 있습니다.</p>
+          </div>
+          <div class="image-admin-grid">
+            <div class="image-item">
+              <h3>정수기</h3>
+              <div class="image-preview">
+                <img id="img-water-purifier-preview" src="/assets/photos/water-purifier.jpg" alt="정수기" style="max-width: 100%; height: auto;">
+              </div>
+              <label>이미지 URL
+                <input type="text" id="img-water-purifier-url" placeholder="https://example.com/image.jpg" value="/assets/photos/water-purifier.jpg">
+              </label>
+              <button type="button" data-save-image="water-purifier">저장</button>
+            </div>
+            <div class="image-item">
+              <h3>공기청정기</h3>
+              <div class="image-preview">
+                <img id="img-air-purifier-preview" src="/assets/photos/air-purifier.jpg" alt="공기청정기" style="max-width: 100%; height: auto;">
+              </div>
+              <label>이미지 URL
+                <input type="text" id="img-air-purifier-url" placeholder="https://example.com/image.jpg" value="/assets/photos/air-purifier.jpg">
+              </label>
+              <button type="button" data-save-image="air-purifier">저장</button>
+            </div>
+            <div class="image-item">
+              <h3>욕실 비데</h3>
+              <div class="image-preview">
+                <img id="img-bathroom-bidet-preview" src="/assets/photos/bathroom-bidet.jpg" alt="욕실 비데" style="max-width: 100%; height: auto;">
+              </div>
+              <label>이미지 URL
+                <input type="text" id="img-bathroom-bidet-url" placeholder="https://example.com/image.jpg" value="/assets/photos/bathroom-bidet.jpg">
+              </label>
+              <button type="button" data-save-image="bathroom-bidet">저장</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="editor-panel" data-editor-panel hidden>
+          <form class="editor-shell" data-editor-form>
+            <div class="editor-head">
+              <div>
+                <p class="eyebrow">렌탈클리어 글쓰기 편집모드</p>
+                <h2 data-editor-title>새 글 작성</h2>
+                <p class="small" data-editor-source></p>
+              </div>
+              <button class="secondary" type="button" data-close-editor>목록으로 돌아가기</button>
+            </div>
+            <div class="editor-grid">
+              <label>제목<input name="title" required></label>
+              <label>슬러그<input name="slug" placeholder="example-rental-guide" required></label>
+              <label>카테고리<select name="category" data-editor-category></select></label>
+              <label>상태<select name="status"><option value="draft">임시저장</option><option value="scheduled">예약됨</option><option value="published">발행됨</option></select></label>
+              <label>유형<select name="type"><option value="guide">가이드 글</option><option value="comparison">상품군 비교</option><option value="latest">최신 렌탈 가이드</option><option value="page">고정 페이지</option></select></label>
+              <label>예약 시간<input type="datetime-local" name="scheduledAt"></label>
+              <input type="hidden" name="image">
+              <label class="full">메타 설명<input name="description" maxlength="160" placeholder="검색 결과에 표시될 설명"></label>
+              <label class="full">요약 박스<textarea name="summary" placeholder="첫 문단에서 바로 답이 되도록 핵심 결론을 작성하세요."></textarea></label>
+              <div class="full">
+                <label>본문</label>
+                <div class="wysiwyg-editor" contenteditable="true" data-body-editor data-placeholder="여기에 글 내용을 입력하세요. 이미지 붙여넣기 또는 Ctrl+V로 바로 추가할 수 있습니다."></div>
+                <input type="hidden" name="body">
+              </div>
+              <label>FAQ 1 질문<input name="faq1q"></label>
+              <label>FAQ 1 답변<input name="faq1a"></label>
+              <label>FAQ 2 질문<input name="faq2q"></label>
+              <label>FAQ 2 답변<input name="faq2a"></label>
+              <label>FAQ 3 질문<input name="faq3q"></label>
+              <label>FAQ 3 답변<input name="faq3a"></label>
+            </div>
+            <div class="editor-actions">
+              <button type="submit">저장</button>
+              <button class="secondary" type="button" data-save-publish>저장 후 발행</button>
+              <button class="secondary" type="button" data-preview-post>미리보기</button>
+              <button class="secondary" type="button" data-download-post>HTML 다운로드</button>
+            </div>
+            <input type="hidden" name="id">
+            <input type="hidden" name="sourcePath">
+          </form>
+        </section>
+      </main>
+    </div>
+
+    <script src="/assets/admin.js"></script>
+  </body>
+</html>

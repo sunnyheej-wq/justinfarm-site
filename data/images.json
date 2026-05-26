@@ -1,0 +1,25 @@
+{
+  "homeHeroImages": [
+    {
+      "id": "water-purifier",
+      "path": "/assets/photos/water-purifier.jpg",
+      "label": "정수기 제품 사진",
+      "url": "/assets/photos/water-purifier.jpg",
+      "lastUpdated": "2026-05-26"
+    },
+    {
+      "id": "air-purifier",
+      "path": "/assets/photos/air-purifier.jpg",
+      "label": "공기청정기 제품 사진",
+      "url": "/assets/photos/air-purifier.jpg",
+      "lastUpdated": "2026-05-26"
+    },
+    {
+      "id": "bathroom-bidet",
+      "path": "/assets/photos/bathroom-bidet.jpg",
+      "label": "욕실 비데 설치 사진",
+      "url": "/assets/photos/bathroom-bidet.jpg",
+      "lastUpdated": "2026-05-26"
+    }
+  ]
+}

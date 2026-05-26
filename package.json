@@ -1,0 +1,9 @@
+{
+  "name": "rentalclear-blog",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Static SEO-first appliance rental comparison blog for Cloudflare Pages.",
+  "scripts": {
+    "start": "python -m http.server 8788"
+  }
+}

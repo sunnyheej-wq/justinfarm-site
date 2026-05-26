@@ -1,0 +1,51 @@
+[
+  {
+    "title": "가전렌탈 계약 전 체크리스트",
+    "slug": "rental-contract-checklist",
+    "category": "계약 가이드",
+    "summary": "월 렌탈료, 약정 기간, 소유권 이전, 중도해지 비용, 사은품 조건을 계약 전 확인하는 방법을 정리했습니다.",
+    "updatedAt": "2026-05-22"
+  },
+  {
+    "title": "정수기 렌탈 선택 기준",
+    "slug": "water-purifier-rental-guide",
+    "category": "정수기",
+    "summary": "직수형, 냉온수, 필터 교체, 방문관리 주기 등 정수기 렌탈 전 꼭 비교해야 할 기준을 설명합니다.",
+    "updatedAt": "2026-05-22"
+  },
+  {
+    "title": "공기청정기 렌탈 가이드",
+    "slug": "air-purifier-rental-guide",
+    "category": "공기청정기",
+    "summary": "평형, 필터 비용, 케어 서비스, 반려동물 환경까지 공기청정기 렌탈 조건을 비교합니다.",
+    "updatedAt": "2026-05-22"
+  },
+  {
+    "title": "비데 렌탈 설치 전 확인사항",
+    "slug": "bidet-rental-guide",
+    "category": "비데",
+    "summary": "욕실 구조, 전원, 노즐 관리, 방수 등급 등 비데 렌탈 전 확인해야 할 항목을 정리했습니다.",
+    "updatedAt": "2026-05-22"
+  },
+  {
+    "title": "렌탈 중도해지 비용 계산 가이드",
+    "slug": "rental-cancellation-fee-guide",
+    "category": "계약 가이드",
+    "summary": "잔여 렌탈료, 할인 반환, 설치비, 사은품 반환 조건을 나눠 확인하는 방법입니다.",
+    "updatedAt": "2026-05-22"
+  },
+  {
+    "title": "가전렌탈 설치 전 준비 체크리스트",
+    "slug": "rental-installation-guide",
+    "category": "설치 가이드",
+    "summary": "전원, 급수, 배수, 공간, 기존 제품 철거 여부를 설치 전에 확인하는 방법입니다.",
+    "updatedAt": "2026-05-22"
+  },
+  {
+    "title": "방문관리와 자가관리 주기 비교",
+    "slug": "rental-maintenance-cycle",
+    "category": "관리 가이드",
+    "summary": "정수기, 공기청정기, 비데 등 렌탈 상품의 관리 방식과 필터 교체 주기를 비교합니다.",
+    "updatedAt": "2026-05-22"
+  }
+]

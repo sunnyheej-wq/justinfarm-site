@@ -1,0 +1,23 @@
+[
+  {
+    "id": "water-purifier",
+    "name": "정수기 렌탈",
+    "summary": "직수형, 냉온수, 필터 교체, 방문관리 주기를 비교하세요.",
+    "tags": ["직수형", "냉온수", "필터", "방문관리"],
+    "url": "/blog/water-purifier-rental-guide/"
+  },
+  {
+    "id": "air-purifier",
+    "name": "공기청정기 렌탈",
+    "summary": "사용 면적, 필터 등급, 교체 비용, 케어 서비스를 함께 보세요.",
+    "tags": ["평형", "필터", "반려동물", "케어"],
+    "url": "/blog/air-purifier-rental-guide/"
+  },
+  {
+    "id": "bidet",
+    "name": "비데 렌탈",
+    "summary": "설치 가능 여부, 노즐 세척, 방수 등급, 관리 주기가 중요합니다.",
+    "tags": ["설치", "노즐", "방수", "관리"],
+    "url": "/blog/bidet-rental-guide/"
+  }
+]
