@@ -2,4 +2,4 @@ name = "justinfarm"
 pages_build_output_dir = "."
 
 [vars]
-SITE_NAME = "RentalClear"
+SITE_NAME = "justinfarm"

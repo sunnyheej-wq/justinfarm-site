@@ -100,26 +100,8 @@ function buildArticleJsonLd() {
   });
 }
 
-// 관리자 페이지에서 설정한 이미지 로드
-function loadManagedImages() {
-  const imagesData = localStorage.getItem("rentalclearImages");
-  if (!imagesData) return;
-  try {
-    const images = JSON.parse(imagesData);
-    document.querySelectorAll("[data-image-id]").forEach((img) => {
-      const imageId = img.dataset.imageId;
-      if (images[imageId]) {
-        img.src = images[imageId];
-      }
-    });
-  } catch (error) {
-    console.warn("이미지 데이터를 로드하지 못했습니다.", error);
-  }
-}
-
 markPartnerLinks();
 enhanceFaq();
 buildBreadcrumbJsonLd();
 buildFaqJsonLd();
 buildArticleJsonLd();
-loadManagedImages();

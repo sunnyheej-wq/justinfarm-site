@@ -1,7 +1,6 @@
 const ADMIN_PASSWORD = "psilove02@";
-const STORAGE_KEY = "rentalclearPosts";
-const SESSION_KEY = "rentalclearAdminAuthed";
-const IMAGES_STORAGE_KEY = "rentalclearImages";
+const STORAGE_KEY = "justinfarmPosts";
+const SESSION_KEY = "justinfarmAdminAuthed";
 
 const categories = [
   "상품군별 핵심 비교",
@@ -211,32 +210,6 @@ function formatBodyHtml(body) {
 
 function getFeaturedImage(post) {
   return post.image || extractFirstImage(post.body) || "/assets/photos/appliance-kitchen.jpg";
-}
-
-// 이미지 관리 함수
-function loadImages() {
-  const saved = JSON.parse(localStorage.getItem(IMAGES_STORAGE_KEY) || "null");
-  return saved || {
-    "water-purifier": "/assets/photos/water-purifier.jpg",
-    "air-purifier": "/assets/photos/air-purifier.jpg",
-    "bathroom-bidet": "/assets/photos/bathroom-bidet.jpg"
-  };
-}
-
-function saveImage(imageId, url) {
-  const images = loadImages();
-  images[imageId] = url;
-  localStorage.setItem(IMAGES_STORAGE_KEY, JSON.stringify(images));
-  return images;
-}
-
-function renderImagePreview(imageId) {
-  const images = loadImages();
-  const url = images[imageId] || "";
-  const previewImg = $(`#img-${imageId}-preview`);
-  const urlInput = $(`#img-${imageId}-url`);
-  if (previewImg) previewImg.src = url;
-  if (urlInput) urlInput.value = url;
 }
 
 function requireAuth() {
@@ -585,15 +558,8 @@ function bindEvents() {
     activeStatus = button.dataset.status;
     showEditor(false);
     $$("[data-list-panel]").forEach((panel) => panel.hidden = false);
-    $("[data-image-panel]").hidden = true;
     render();
   }));
-  // 이미지 관리 탭 이벤트
-  $("[data-tab='images']").addEventListener("click", () => {
-    $$("[data-list-panel]").forEach((panel) => panel.hidden = true);
-    $("[data-image-panel]").hidden = false;
-    ["water-purifier", "air-purifier", "bathroom-bidet"].forEach(renderImagePreview);
-  });
   ["[data-apply]", "[data-refresh]"].forEach((selector) => $(selector).addEventListener("click", render));
   $("[data-reset]").addEventListener("click", () => {
     $("[data-search]").value = "";
@@ -648,7 +614,7 @@ function bindEvents() {
     const post = readEditor();
     download(`${post.slug}.html`, postToHtml(post), "text/html");
   });
-  $("[data-export-json]").addEventListener("click", () => download("rentalclear-posts.json", JSON.stringify(posts, null, 2), "application/json"));
+  $("[data-export-json]").addEventListener("click", () => download("justinfarm-posts.json", JSON.stringify(posts, null, 2), "application/json"));
   $("[data-export-html]").addEventListener("click", () => {
     const targets = posts.filter((post) => selectedIds().includes(post.id));
     const target = targets[0] || filteredPosts()[0] || posts[0];
@@ -696,7 +662,6 @@ function bindEvents() {
     const editId = event.target.dataset.edit;
     const duplicateId = event.target.dataset.duplicate;
     const downloadId = event.target.dataset.download;
-    const saveImageId = event.target.dataset.saveImage;
     if (editId) await openEditor(posts.find((post) => post.id === editId));
     if (duplicateId) {
       const source = posts.find((post) => post.id === duplicateId);
@@ -705,17 +670,6 @@ function bindEvents() {
     if (downloadId) {
       const post = posts.find((item) => item.id === downloadId);
       download(`${post.slug}.html`, postToHtml(post), "text/html");
-    }
-    if (saveImageId) {
-      const urlInput = $(`#img-${saveImageId}-url`);
-      const url = urlInput.value.trim();
-      if (!url) {
-        alert("이미지 URL을 입력해주세요.");
-        return;
-      }
-      saveImage(saveImageId, url);
-      renderImagePreview(saveImageId);
-      alert("이미지가 저장되었습니다.");
     }
   });
 }
@@ -735,6 +689,4 @@ function escapeAttr(value = "") {
 populateSelects();
 initAuth();
 bindEvents();
-// 이미지 미리보기 초기 로드
-["water-purifier", "air-purifier", "bathroom-bidet"].forEach(renderImagePreview);
 requireAuth();

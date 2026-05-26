@@ -1,8 +1,8 @@
 {
-  "name": "rentalclear-blog",
+  "name": "justinfarm",
   "version": "1.0.0",
   "private": true,
-  "description": "Static SEO-first appliance rental comparison blog for Cloudflare Pages.",
+  "description": "Static site for justinfarm.com deployed with Cloudflare Pages.",
   "scripts": {
     "start": "python -m http.server 8788"
   }

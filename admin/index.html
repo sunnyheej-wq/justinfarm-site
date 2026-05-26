@@ -40,7 +40,6 @@
             <button class="active" type="button" data-status="published">발행됨 <strong data-count="published">0</strong></button>
             <button type="button" data-status="scheduled">예약됨 <strong data-count="scheduled">0</strong></button>
             <button type="button" data-status="draft">임시저장 <strong data-count="draft">0</strong></button>
-            <button type="button" data-tab="images" style="margin-left: auto;">🖼️ 이미지 관리</button>
           </div>
           <p class="admin-page-count">총 <strong data-total-count>0</strong>개 · <span data-page-label>1/1 페이지</span></p>
         </section>
@@ -91,45 +90,6 @@
           </table>
         </section>
 
-        <section class="image-admin-panel" data-image-panel hidden>
-          <div class="image-admin-head">
-            <h2>홈페이지 이미지 관리</h2>
-            <p>홈페이지에 표시되는 상품 사진의 URL을 변경할 수 있습니다.</p>
-          </div>
-          <div class="image-admin-grid">
-            <div class="image-item">
-              <h3>정수기</h3>
-              <div class="image-preview">
-                <img id="img-water-purifier-preview" src="/assets/photos/water-purifier.jpg" alt="정수기" style="max-width: 100%; height: auto;">
-              </div>
-              <label>이미지 URL
-                <input type="text" id="img-water-purifier-url" placeholder="https://example.com/image.jpg" value="/assets/photos/water-purifier.jpg">
-              </label>
-              <button type="button" data-save-image="water-purifier">저장</button>
-            </div>
-            <div class="image-item">
-              <h3>공기청정기</h3>
-              <div class="image-preview">
-                <img id="img-air-purifier-preview" src="/assets/photos/air-purifier.jpg" alt="공기청정기" style="max-width: 100%; height: auto;">
-              </div>
-              <label>이미지 URL
-                <input type="text" id="img-air-purifier-url" placeholder="https://example.com/image.jpg" value="/assets/photos/air-purifier.jpg">
-              </label>
-              <button type="button" data-save-image="air-purifier">저장</button>
-            </div>
-            <div class="image-item">
-              <h3>욕실 비데</h3>
-              <div class="image-preview">
-                <img id="img-bathroom-bidet-preview" src="/assets/photos/bathroom-bidet.jpg" alt="욕실 비데" style="max-width: 100%; height: auto;">
-              </div>
-              <label>이미지 URL
-                <input type="text" id="img-bathroom-bidet-url" placeholder="https://example.com/image.jpg" value="/assets/photos/bathroom-bidet.jpg">
-              </label>
-              <button type="button" data-save-image="bathroom-bidet">저장</button>
-            </div>
-          </div>
-        </section>
-
         <section class="editor-panel" data-editor-panel hidden>
           <form class="editor-shell" data-editor-form>
             <div class="editor-head">
@@ -153,9 +113,9 @@
               <div class="full">
                 <label>본문</label>
                 <div class="editor-body-toolbar">
-                  <button class="secondary" type="button" data-insert-image>🖼️ 이미지 삽입</button>
+                  <button class="secondary" type="button" data-insert-image>이미지 삽입</button>
                   <input type="file" accept="image/*" data-image-file-input hidden>
-                  <p class="small">💡 Ctrl+V로 이미지를 붙여넣거나 파일을 선택하여 삽입할 수 있습니다.</p>
+                  <p class="small">Ctrl+V로 이미지를 붙여넣거나 파일을 선택하면 본문 HTML에 바로 삽입됩니다.</p>
                 </div>
                 <div class="wysiwyg-editor" contenteditable="true" data-body-editor data-placeholder="여기에 글 내용을 입력하세요. 이미지 붙여넣기 또는 Ctrl+V로 바로 추가할 수 있습니다."></div>
                 <input type="hidden" name="body">
