@@ -1,6 +1,7 @@
 const ADMIN_PASSWORD = "psilove02@";
 const STORAGE_KEY = "justinfarmPosts";
 const SESSION_KEY = "justinfarmAdminAuthed";
+const PUBLISH_SECRET_KEY = "justinfarmPublishSecret";
 
 const categories = [
   "상품군별 핵심 비교",
@@ -502,6 +503,44 @@ function saveEditor(statusOverride = null) {
   return post;
 }
 
+function postOutputPath(post) {
+  const sourcePath = (post.sourcePath || "").trim();
+  if (sourcePath) {
+    const clean = sourcePath.replace(/^\/+|\/+$/g, "");
+    if (!clean) return "index.html";
+    return clean.endsWith(".html") ? clean : `${clean}/index.html`;
+  }
+  if (post.slug === "compare") return "compare/index.html";
+  return `blog/${post.slug}/index.html`;
+}
+
+async function publishPost(post) {
+  let secret = sessionStorage.getItem(PUBLISH_SECRET_KEY);
+  if (!secret) {
+    secret = prompt("자동 발행 비밀번호를 입력하세요.");
+    if (!secret) throw new Error("자동 발행이 취소되었습니다.");
+    sessionStorage.setItem(PUBLISH_SECRET_KEY, secret);
+  }
+
+  const response = await fetch("/api/publish", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      secret,
+      path: postOutputPath(post),
+      html: postToHtml(post),
+      message: `Publish ${post.title}`
+    })
+  });
+
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    if (response.status === 401) sessionStorage.removeItem(PUBLISH_SECRET_KEY);
+    throw new Error(result.error || "자동 발행에 실패했습니다.");
+  }
+  return result;
+}
+
 function showEditor(open) {
   $$("[data-list-panel]").forEach((panel) => panel.hidden = open);
   $("[data-editor-panel]").hidden = !open;
@@ -671,10 +710,15 @@ function bindEvents() {
     event.preventDefault();
     saveEditor();
   });
-  $("[data-save-publish]").addEventListener("click", () => {
+  $("[data-save-publish]").addEventListener("click", async () => {
     const post = saveEditor("published");
-    download(`${post.slug}.html`, postToHtml(post), "text/html");
-    setPublishNote("발행용 HTML 파일을 다운로드했습니다. 이 파일을 GitHub의 같은 글 폴더 index.html에 반영해야 공개 사이트가 바뀝니다.");
+    setPublishNote("GitHub에 자동 발행 중입니다. 잠시만 기다려 주세요.");
+    try {
+      const result = await publishPost(post);
+      setPublishNote(`자동 발행 완료: ${result.path}. Cloudflare 배포가 곧 반영됩니다.`);
+    } catch (error) {
+      setPublishNote(`${error.message} HTML 다운로드로 수동 반영할 수도 있습니다.`);
+    }
   });
   $("[data-preview-post]").addEventListener("click", () => {
     const html = postToHtml(readEditor());
