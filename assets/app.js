@@ -78,7 +78,7 @@ function buildFaqJsonLd() {
 function buildArticleJsonLd() {
   if (hasJsonLdType("Article")) return;
   if (!location.pathname.startsWith("/blog/") || location.pathname === "/blog/") return;
-  const image = document.querySelector(".article-image img");
+  const image = document.querySelector(".article-image img, main img");
   addJsonLd({
     "@context": "https://schema.org",
     "@type": "Article",
@@ -113,7 +113,7 @@ async function syncHomeCardImages() {
       if (!response.ok) return;
       const html = await response.text();
       const doc = new DOMParser().parseFromString(html, "text/html");
-      const featured = doc.querySelector("main .article-image img");
+      const featured = doc.querySelector("main .article-image img, main img");
       const src = featured?.getAttribute("src");
       if (!src) return;
       img.src = new URL(src, url.href).href;

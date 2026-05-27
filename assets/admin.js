@@ -515,12 +515,12 @@ function postOutputPath(post) {
 }
 
 async function publishPost(post) {
-  let secret = sessionStorage.getItem(PUBLISH_SECRET_KEY);
+  const savedSecret = sessionStorage.getItem(PUBLISH_SECRET_KEY) || "";
+  const secret = prompt("자동 발행 비밀번호를 입력하세요.", savedSecret);
   if (!secret) {
-    secret = prompt("자동 발행 비밀번호를 입력하세요.");
-    if (!secret) throw new Error("자동 발행이 취소되었습니다.");
-    sessionStorage.setItem(PUBLISH_SECRET_KEY, secret);
+    throw new Error("자동 발행이 취소되었습니다.");
   }
+  sessionStorage.setItem(PUBLISH_SECRET_KEY, secret);
 
   const response = await fetch("/api/publish", {
     method: "POST",
@@ -572,10 +572,18 @@ function markdownTableToHtml(block) {
   return `<div class="compare-table"><table><thead><tr>${rows[0].map((cell) => `<th>${cell}</th>`).join("")}</tr></thead><tbody>${rows.slice(1).map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
 }
 
+function htmlHasImageSrc(html, src) {
+  if (!html || !src) return false;
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  return [...doc.querySelectorAll("img")].some((img) => img.getAttribute("src") === src);
+}
+
 function postToHtml(post) {
   const faqHtml = post.faqs.map(([q, a], index) => `<details ${index === 0 ? "open" : ""}><summary>${escapeHtml(q)}</summary><p>${escapeHtml(a)}</p></details>`).join("");
   const canonicalSlug = post.slug === "compare" ? "compare" : `blog/${post.slug}`;
   const featuredImage = getFeaturedImage(post);
+  const featuredAlreadyInBody = htmlHasImageSrc(post.body, featuredImage);
+  const featuredFigure = featuredAlreadyInBody ? "" : `<figure class="article-image"><img src="${escapeAttr(featuredImage)}" alt="${escapeAttr(post.title)} 대표 이미지" width="1200" height="675" loading="eager" decoding="async"><figcaption>${escapeHtml(post.title)} 판단 기준을 정리한 대표 이미지 <span class="image-credit">사진: 공개 라이선스/스톡 이미지, 편집: 렌탈클리어</span></figcaption></figure>`;
   return `<!doctype html>
 <html lang="ko">
   <head>
@@ -593,7 +601,7 @@ function postToHtml(post) {
       <p class="breadcrumb"><a href="/">홈</a> / <a href="/blog/">가이드</a></p>
       <h1>${escapeHtml(post.title)}</h1>
       <p class="meta">${escapeHtml(post.category)} · ${post.updatedAt}</p>
-      <figure class="article-image"><img src="${escapeAttr(featuredImage)}" alt="${escapeAttr(post.title)} 대표 이미지" width="1200" height="675" loading="eager" decoding="async"><figcaption>${escapeHtml(post.title)} 판단 기준을 정리한 대표 이미지 <span class="image-credit">사진: 공개 라이선스/스톡 이미지, 편집: 렌탈클리어</span></figcaption></figure>
+      ${featuredFigure}
       <div class="evidence-box"><h2>먼저 결론</h2><p>${escapeHtml(post.summary)}</p></div>
       ${post.body}
       <section class="faq"><h2>자주 묻는 질문</h2>${faqHtml}</section>
@@ -710,7 +718,8 @@ function bindEvents() {
     event.preventDefault();
     saveEditor();
   });
-  $("[data-save-publish]").addEventListener("click", async () => {
+  $("[data-save-publish]").addEventListener("click", async (event) => {
+    event.preventDefault();
     const post = saveEditor("published");
     setPublishNote("GitHub에 자동 발행 중입니다. 잠시만 기다려 주세요.");
     try {

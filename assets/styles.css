@@ -424,6 +424,7 @@ th {
 }
 
 .article-image img,
+.article p > img,
 .product-card img,
 .article-card img {
   width: 100%;
