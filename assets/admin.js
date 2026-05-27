@@ -1,7 +1,6 @@
 const ADMIN_PASSWORD = "psilove02@";
 const STORAGE_KEY = "justinfarmPosts";
 const SESSION_KEY = "justinfarmAdminAuthed";
-const PUBLISH_SECRET_KEY = "justinfarmPublishSecret";
 
 const categories = [
   "상품군별 핵심 비교",
@@ -62,6 +61,7 @@ let posts = loadPosts();
 let activeStatus = "published";
 let editingId = null;
 let lastEditorRange = null;
+let draggedImageFigure = null;
 
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => [...document.querySelectorAll(selector)];
@@ -120,16 +120,35 @@ function createImageDeleteButton() {
   return button;
 }
 
+function createImageHandle() {
+  const handle = document.createElement("span");
+  handle.className = "image-drag-handle";
+  handle.textContent = "이동";
+  return handle;
+}
+
+function prepareEditableFigure(figure) {
+  figure.classList.add("editable-image");
+  figure.draggable = true;
+  figure.setAttribute("contenteditable", "false");
+  if (!figure.querySelector(".image-drag-handle")) figure.appendChild(createImageHandle());
+  if (!figure.querySelector(".remove-image-button")) figure.appendChild(createImageDeleteButton());
+  return figure;
+}
+
 function decorateBodyImages(container) {
   if (!container) return;
   const images = [...container.querySelectorAll("img")];
   images.forEach((img) => {
-    if (img.closest("figure.editable-image")) return;
+    const existing = img.closest("figure.editable-image");
+    if (existing) {
+      prepareEditableFigure(existing);
+      return;
+    }
     const figure = document.createElement("figure");
-    figure.className = "editable-image";
     const clone = img.cloneNode(true);
     figure.appendChild(clone);
-    figure.appendChild(createImageDeleteButton());
+    prepareEditableFigure(figure);
     img.replaceWith(figure);
   });
 }
@@ -194,12 +213,11 @@ function insertImageHtml(src, alt = "") {
     selection.addRange(range);
   }
   const figure = document.createElement("figure");
-  figure.className = "editable-image";
   const img = document.createElement("img");
   img.src = src;
   img.alt = alt;
   figure.appendChild(img);
-  figure.appendChild(createImageDeleteButton());
+  prepareEditableFigure(figure);
   range.deleteContents();
   range.insertNode(figure);
   const paragraph = document.createElement("p");
@@ -215,6 +233,23 @@ function rememberEditorRange() {
   if (!editor || !selection || !selection.rangeCount) return;
   const range = selection.getRangeAt(0);
   if (editor.contains(range.commonAncestorContainer)) lastEditorRange = range.cloneRange();
+}
+
+function moveDraggedImage(event) {
+  const editor = getBodyEditor();
+  if (!editor || !draggedImageFigure) return;
+  event.preventDefault();
+  const targetFigure = event.target.closest?.("figure.editable-image");
+  if (targetFigure && targetFigure !== draggedImageFigure) {
+    const rect = targetFigure.getBoundingClientRect();
+    const insertAfter = event.clientY > rect.top + rect.height / 2;
+    targetFigure[insertAfter ? "after" : "before"](draggedImageFigure);
+  } else {
+    editor.appendChild(draggedImageFigure);
+  }
+  draggedImageFigure.classList.remove("dragging");
+  draggedImageFigure = null;
+  syncEditorBody();
 }
 
 function syncEditorBody() {
@@ -499,7 +534,7 @@ function saveEditor(statusOverride = null) {
   else posts.unshift(post);
   savePosts();
   render();
-  setPublishNote("브라우저에 저장되었습니다. 공개 사이트 반영은 HTML 다운로드 후 GitHub 반영이 필요합니다.");
+  setPublishNote("브라우저에 저장되었습니다. 공개 사이트에 반영하려면 저장 후 발행을 눌러 주세요.");
   return post;
 }
 
@@ -515,18 +550,10 @@ function postOutputPath(post) {
 }
 
 async function publishPost(post) {
-  const savedSecret = sessionStorage.getItem(PUBLISH_SECRET_KEY) || "";
-  const secret = prompt("자동 발행 비밀번호를 입력하세요.", savedSecret);
-  if (!secret) {
-    throw new Error("자동 발행이 취소되었습니다.");
-  }
-  sessionStorage.setItem(PUBLISH_SECRET_KEY, secret);
-
   const response = await fetch("/api/publish", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
-      secret,
       path: postOutputPath(post),
       html: postToHtml(post),
       message: `Publish ${post.title}`
@@ -535,7 +562,6 @@ async function publishPost(post) {
 
   const result = await response.json().catch(() => ({}));
   if (!response.ok) {
-    if (response.status === 401) sessionStorage.removeItem(PUBLISH_SECRET_KEY);
     throw new Error(result.error || "자동 발행에 실패했습니다.");
   }
   return result;
@@ -671,6 +697,24 @@ function bindEvents() {
     bodyEditor.addEventListener("keyup", rememberEditorRange);
     bodyEditor.addEventListener("mouseup", rememberEditorRange);
     bodyEditor.addEventListener("focus", rememberEditorRange);
+    bodyEditor.addEventListener("dragstart", (event) => {
+      const figure = event.target.closest?.("figure.editable-image");
+      if (!figure) return;
+      draggedImageFigure = figure;
+      figure.classList.add("dragging");
+      event.dataTransfer.effectAllowed = "move";
+      event.dataTransfer.setData("text/plain", "image");
+    });
+    bodyEditor.addEventListener("dragover", (event) => {
+      if (!draggedImageFigure) return;
+      event.preventDefault();
+      event.dataTransfer.dropEffect = "move";
+    });
+    bodyEditor.addEventListener("drop", moveDraggedImage);
+    bodyEditor.addEventListener("dragend", () => {
+      draggedImageFigure?.classList.remove("dragging");
+      draggedImageFigure = null;
+    });
     bodyEditor.addEventListener("click", (event) => {
       if (!event.target.matches(".remove-image-button")) return;
       event.target.closest("figure.editable-image")?.remove();
@@ -717,6 +761,7 @@ function bindEvents() {
   $("[data-editor-form]").addEventListener("submit", (event) => {
     event.preventDefault();
     saveEditor();
+    alert("저장되었습니다. 공개 사이트 반영은 저장 후 발행을 눌러야 합니다.");
   });
   $("[data-save-publish]").addEventListener("click", async (event) => {
     event.preventDefault();
@@ -725,8 +770,10 @@ function bindEvents() {
     try {
       const result = await publishPost(post);
       setPublishNote(`자동 발행 완료: ${result.path}. Cloudflare 배포가 곧 반영됩니다.`);
+      alert("자동 발행이 완료되었습니다. 잠시 후 홈페이지에 반영됩니다.");
     } catch (error) {
       setPublishNote(`${error.message} HTML 다운로드로 수동 반영할 수도 있습니다.`);
+      alert(error.message);
     }
   });
   $("[data-preview-post]").addEventListener("click", () => {

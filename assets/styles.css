@@ -850,6 +850,7 @@ textarea {
 .wysiwyg-editor figure.editable-image {
   position: relative;
   margin: 0 0 18px;
+  cursor: grab;
 }
 
 .wysiwyg-editor figure.editable-image .remove-image-button {
@@ -868,7 +869,30 @@ textarea {
   transition: opacity 0.15s ease;
 }
 
+.wysiwyg-editor figure.editable-image.dragging {
+  opacity: 0.55;
+  outline: 3px solid rgba(16, 124, 252, 0.35);
+}
+
+.wysiwyg-editor figure.editable-image .image-drag-handle {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: rgba(15, 23, 42, 0.78);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0;
+  pointer-events: none;
+}
+
 .wysiwyg-editor figure.editable-image:hover .remove-image-button {
+  opacity: 1;
+}
+
+.wysiwyg-editor figure.editable-image:hover .image-drag-handle {
   opacity: 1;
 }
 

@@ -20,11 +20,10 @@ export async function onRequestPost(context) {
 async function handlePublish(context) {
   const env = context.env || {};
   const githubToken = env.GITHUB_TOKEN;
-  const publishSecret = env.PUBLISH_SECRET;
 
-  if (!githubToken || !publishSecret) {
+  if (!githubToken) {
     return json({
-      error: "Cloudflare 환경변수 GITHUB_TOKEN, PUBLISH_SECRET이 필요합니다."
+      error: "Cloudflare 환경변수 GITHUB_TOKEN이 필요합니다."
     }, 500);
   }
 
@@ -33,10 +32,6 @@ async function handlePublish(context) {
     payload = await context.request.json();
   } catch {
     return json({ error: "요청 내용을 읽을 수 없습니다." }, 400);
-  }
-
-  if (payload.secret !== publishSecret) {
-    return json({ error: "발행 비밀번호가 올바르지 않습니다." }, 401);
   }
 
   const path = normalizePath(payload.path);
