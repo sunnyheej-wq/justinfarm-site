@@ -432,7 +432,9 @@ th {
 
 .product-card img,
 .article-card img {
+  display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 1 / 1;
   object-fit: cover;
 }
@@ -452,8 +454,7 @@ th {
 
 .product-card .image-credit,
 .article-card .image-credit {
-  margin: -8px 0 14px;
-  padding: 0 2px;
+  display: none;
 }
 
 .evidence-box,
