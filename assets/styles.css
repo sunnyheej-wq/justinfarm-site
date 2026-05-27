@@ -424,12 +424,18 @@ th {
 }
 
 .article-image img,
-.article p > img,
-.product-card img,
-.article-card img {
+.article p > img {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
+}
+
+.product-card img,
+.article-card img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  background: #f8fafc;
 }
 
 .article-image figcaption {
