@@ -108,6 +108,12 @@ function savePosts() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(posts, null, 2));
 }
 
+function upsertPost(post) {
+  const index = posts.findIndex((item) => item.id === editingId || item.id === post.id);
+  if (index >= 0) posts[index] = post;
+  else posts.unshift(post);
+}
+
 function getBodyEditor() {
   return $("[data-body-editor]");
 }
@@ -527,12 +533,19 @@ function readEditor(statusOverride = null) {
   });
 }
 
-function saveEditor(statusOverride = null) {
+function saveEditor(statusOverride = null, options = {}) {
+  const { persist = true } = options;
   const post = readEditor(statusOverride);
-  const index = posts.findIndex((item) => item.id === editingId || item.id === post.id);
-  if (index >= 0) posts[index] = post;
-  else posts.unshift(post);
-  savePosts();
+  upsertPost(post);
+  if (persist) {
+    try {
+      savePosts();
+    } catch (error) {
+      setPublishNote("이미지가 커서 브라우저 임시 저장은 건너뛰었습니다. 저장 후 발행을 누르면 공개 사이트에는 반영됩니다.");
+      console.warn("브라우저 임시 저장 실패", error);
+      return post;
+    }
+  }
   render();
   setPublishNote("브라우저에 저장되었습니다. 공개 사이트에 반영하려면 저장 후 발행을 눌러 주세요.");
   return post;
@@ -760,12 +773,18 @@ function bindEvents() {
   });
   $("[data-editor-form]").addEventListener("submit", (event) => {
     event.preventDefault();
-    saveEditor();
+    try {
+      saveEditor();
+    } catch (error) {
+      setPublishNote(error.message || "저장하지 못했습니다.");
+      alert(error.message || "저장하지 못했습니다.");
+      return;
+    }
     alert("저장되었습니다. 공개 사이트 반영은 저장 후 발행을 눌러야 합니다.");
   });
   $("[data-save-publish]").addEventListener("click", async (event) => {
     event.preventDefault();
-    const post = saveEditor("published");
+    const post = saveEditor("published", { persist: false });
     setPublishNote("GitHub에 자동 발행 중입니다. 잠시만 기다려 주세요.");
     try {
       const result = await publishPost(post);
