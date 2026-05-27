@@ -7,6 +7,17 @@ export async function onRequestOptions() {
 }
 
 export async function onRequestPost(context) {
+  try {
+    return await handlePublish(context);
+  } catch (error) {
+    return json({
+      error: "자동 발행 서버 오류가 발생했습니다.",
+      message: error?.message || String(error)
+    }, 500);
+  }
+}
+
+async function handlePublish(context) {
   const env = context.env || {};
   const githubToken = env.GITHUB_TOKEN;
   const publishSecret = env.PUBLISH_SECRET;
