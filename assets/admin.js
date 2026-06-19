@@ -19,7 +19,10 @@ const categories = [
   "이전 설치",
   "계약 가이드",
   "관리 가이드",
-  "해지 비용"
+  "해지 비용",
+  "제휴카드 활용법",
+  "렌탈 금융 분석",
+  "신규 라이프 렌탈"
 ];
 
 const availableImages = [
@@ -54,7 +57,10 @@ const seedPosts = [
   post("induction-range-rental-guide", "인덕션 전기레인지 렌탈 전 체크리스트", "induction-range-rental-guide", "인덕션", "guide", "/blog/induction-range-rental-guide/", "/assets/photos/appliance-kitchen.jpg", "인덕션 렌탈을 전기 증설, 화구 수, 상판 크기, 냄비 호환, 설치 방식 기준으로 비교합니다."),
   post("mattress-rental-guide", "매트리스 렌탈 케어 서비스 선택 기준", "mattress-rental-guide", "매트리스", "guide", "/blog/mattress-rental-guide/", "/assets/photos/cost-calc.jpg", "매트리스 렌탈을 경도, 사이즈, 케어 주기, 위생 관리, 구매 대비 총비용 기준으로 비교합니다."),
   post("pet-household-appliance-rental-guide", "반려동물 가정 생활가전 렌탈 기준", "pet-household-appliance-rental-guide", "반려동물 가전", "guide", "/blog/pet-household-appliance-rental-guide/", "/assets/photos/air-purifier.jpg", "반려동물 가정에서 공기청정기, 건조기, 청소기 렌탈을 털, 냄새, 필터, 관리 주기 기준으로 비교합니다."),
-  post("moving-home-rental-transfer-guide", "이사 예정 가전렌탈 이전 설치 가이드", "moving-home-rental-transfer-guide", "이전 설치", "guide", "/blog/moving-home-rental-transfer-guide/", "/assets/photos/install-repair.jpg", "이사를 앞둔 사용자가 렌탈 가전 이전 설치, 해지, 재약정, 설치비를 비교하는 방법입니다.")
+  post("moving-home-rental-transfer-guide", "이사 예정 가전렌탈 이전 설치 가이드", "moving-home-rental-transfer-guide", "이전 설치", "guide", "/blog/moving-home-rental-transfer-guide/", "/assets/photos/install-repair.jpg", "이사를 앞둔 사용자가 렌탈 가전 이전 설치, 해지, 재약정, 설치비를 비교하는 방법입니다."),
+  post("card-discount-guide", "렌탈 제휴카드 할인 극대화 가이드", "card-discount-guide", "제휴카드 활용법", "latest", "/blog/card-discount-guide/", "/assets/photos/appliance-kitchen.jpg", "카드사 전월 실적 제외 항목, 실적 채우기 팁, 피킹 스윗스팟을 수학적으로 분석한 실전 가이드."),
+  post("rental-vs-lease-finance", "가전 렌탈 vs 할부 vs 리스 금융 비교", "rental-vs-lease-finance", "렌탈 금융 분석", "latest", "/blog/rental-vs-lease-finance/", "/assets/photos/cost-calc.jpg", "렌탈, 카드 할부 구매, 리스의 실질 이자율 차이와 신용도 영향 및 장단점을 비교 분석합니다."),
+  post("plant-art-rental-guide", "반려식물 및 그림 구독 렌탈 시장 가이드", "plant-art-rental-guide", "신규 라이프 렌탈", "latest", "/blog/plant-art-rental-guide/", "/assets/photos/plant-art.png", "플랜테리어와 미술품 그림 렌탈 서비스의 가격 조건, 관리 주기 및 법인 혜택을 다룬 아티클입니다.")
 ];
 
 let posts = loadPosts();
