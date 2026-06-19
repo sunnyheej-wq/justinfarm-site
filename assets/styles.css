@@ -1006,3 +1006,119 @@ textarea {
     flex-direction: column;
   }
 }
+
+/* ==========================================================================
+   Rental vs Buy Calculator Styling
+   ========================================================================== */
+.calc-card {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 20px 40px rgba(8, 42, 37, 0.16);
+  border-radius: 12px;
+  padding: 24px;
+}
+
+.calc-card h2 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0 0 16px 0 !important;
+  border-bottom: 2px solid var(--green);
+  padding-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.calc-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.calc-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.calc-field label {
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+.calc-field input,
+.calc-field select {
+  min-height: 38px !important;
+  height: 38px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  background: #fff;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  width: 100%;
+}
+
+.calc-field input:focus,
+.calc-field select:focus {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px rgba(15, 138, 104, 0.15);
+}
+
+.calc-result {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--soft);
+  border: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.result-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.result-row span {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.result-row strong {
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.result-row.highlight {
+  margin-top: 6px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--line);
+}
+
+.result-row.highlight span {
+  font-weight: 800;
+  color: var(--ink);
+}
+
+.result-row.highlight strong {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.text-green {
+  color: var(--green) !important;
+}
+
+.text-coral {
+  color: var(--coral) !important;
+}

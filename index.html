@@ -54,15 +54,53 @@
               <a class="button dark" href="/blog/rental-contract-checklist/">계약 체크리스트</a>
             </div>
           </div>
-          <aside class="hero-card">
-            <h2>계약 전 30초 점검</h2>
-            <div class="deal-list">
-              <div class="deal-item"><span>월 렌탈료</span><strong>총 납입액 계산</strong></div>
-              <div class="deal-item"><span>관리 방식</span><strong>방문/자가 관리</strong></div>
-              <div class="deal-item"><span>약정 기간</span><strong>3년·5년 비교</strong></div>
-              <div class="deal-item"><span>소유권</span><strong>이전 시점 확인</strong></div>
+          <aside class="hero-card calc-card">
+            <h2>렌탈 vs 구매 비교 계산기</h2>
+            <form class="calc-form" id="rental-calc" onsubmit="return false;">
+              <div class="calc-field">
+                <label for="monthly-fee">월 렌탈료 (원)</label>
+                <input type="number" id="monthly-fee" value="29900" min="0" step="100">
+              </div>
+              <div class="calc-field">
+                <label for="contract-period">약정 기간 (개월)</label>
+                <select id="contract-period">
+                  <option value="36">36개월 (3년)</option>
+                  <option value="60" selected>60개월 (5년)</option>
+                  <option value="72">72개월 (6년)</option>
+                </select>
+              </div>
+              <div class="calc-field">
+                <label for="card-discount">제휴카드 할인 (원/월)</label>
+                <select id="card-discount">
+                  <option value="0">할인 없음</option>
+                  <option value="13000">월 13,000원 할인</option>
+                  <option value="15000" selected>월 15,000원 할인</option>
+                  <option value="20000">월 20,000원 할인</option>
+                </select>
+              </div>
+              <div class="calc-field">
+                <label for="cashback">지원금/사은품 혜택 (원)</label>
+                <input type="number" id="cashback" value="100000" min="0" step="10000">
+              </div>
+              <div class="calc-field">
+                <label for="buy-price">일시불 구매가 (원)</label>
+                <input type="number" id="buy-price" value="1200000" min="0" step="10000">
+              </div>
+            </form>
+            <div class="calc-result" id="calc-result">
+              <div class="result-row">
+                <span>총 실지불 렌탈료:</span>
+                <strong id="total-rental">0원</strong>
+              </div>
+              <div class="result-row">
+                <span>총 카드할인+사은품:</span>
+                <strong id="total-discount" class="text-green">0원</strong>
+              </div>
+              <div class="result-row highlight">
+                <span id="diff-label">구매가 더 유리:</span>
+                <strong id="diff-value">0원</strong>
+              </div>
             </div>
-            <a class="button" href="https://partners.ajl.to/lead/rental?partnerId=Y4Z4HOWT" target="_blank" rel="nofollow sponsored noopener">렌탈 조건 확인하기</a>
           </aside>
         </div>
       </section>
@@ -166,6 +204,6 @@
         </div>
       </div>
     </footer>
-    <script src="/assets/app.js"></script>
+    <script src="/assets/app.js?v=1"></script>
   </body>
 </html>

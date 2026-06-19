@@ -125,9 +125,74 @@ async function syncHomeCardImages() {
   }));
 }
 
+function initRentalCalc() {
+  const calcForm = document.getElementById("rental-calc");
+  if (!calcForm) return;
+
+  const monthlyFeeInput = document.getElementById("monthly-fee");
+  const contractPeriodSelect = document.getElementById("contract-period");
+  const cardDiscountSelect = document.getElementById("card-discount");
+  const cashbackInput = document.getElementById("cashback");
+  const buyPriceInput = document.getElementById("buy-price");
+
+  const totalRentalEl = document.getElementById("total-rental");
+  const totalDiscountEl = document.getElementById("total-discount");
+  const diffLabelEl = document.getElementById("diff-label");
+  const diffValueEl = document.getElementById("diff-value");
+
+  function formatWon(value) {
+    return new Intl.NumberFormat("ko-KR").format(value) + "원";
+  }
+
+  function calculate() {
+    const monthlyFee = parseInt(monthlyFeeInput.value) || 0;
+    const period = parseInt(contractPeriodSelect.value) || 0;
+    const cardDiscount = parseInt(cardDiscountSelect.value) || 0;
+    const cashback = parseInt(cashbackInput.value) || 0;
+    const buyPrice = parseInt(buyPriceInput.value) || 0;
+
+    const baseRentalTotal = monthlyFee * period;
+    const totalCardDiscount = cardDiscount * period;
+    const totalDiscountAndGift = totalCardDiscount + cashback;
+    const netRentalTotal = Math.max(0, baseRentalTotal - totalDiscountAndGift);
+
+    totalRentalEl.textContent = formatWon(netRentalTotal);
+    totalDiscountEl.textContent = formatWon(totalDiscountAndGift);
+
+    const diffVal = netRentalTotal - buyPrice;
+    if (diffVal < 0) {
+      // Rental is cheaper than buying
+      diffLabelEl.textContent = "렌탈이 더 유리:";
+      diffLabelEl.className = "text-green";
+      diffValueEl.textContent = formatWon(Math.abs(diffVal));
+      diffValueEl.className = "text-green";
+    } else if (diffVal > 0) {
+      // Buying is cheaper than rental
+      diffLabelEl.textContent = "일시불 구매가 더 유리:";
+      diffLabelEl.className = "text-coral";
+      diffValueEl.textContent = formatWon(diffVal);
+      diffValueEl.className = "text-coral";
+    } else {
+      diffLabelEl.textContent = "동일한 조건:";
+      diffLabelEl.className = "";
+      diffValueEl.textContent = "0원";
+      diffValueEl.className = "";
+    }
+  }
+
+  [monthlyFeeInput, contractPeriodSelect, cardDiscountSelect, cashbackInput, buyPriceInput].forEach((input) => {
+    input.addEventListener("input", calculate);
+    input.addEventListener("change", calculate);
+  });
+
+  calculate();
+}
+
 markPartnerLinks();
 enhanceFaq();
 buildBreadcrumbJsonLd();
 buildFaqJsonLd();
 buildArticleJsonLd();
 syncHomeCardImages();
+initRentalCalc();
+
