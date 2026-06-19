@@ -990,7 +990,9 @@ textarea {
   .schedule-row,
   .editor-grid,
   .image-toolbox,
-  .form-grid {
+  .form-grid,
+  .roadmap-timeline,
+  .card-ranking-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1114,200 +1116,283 @@ textarea {
   font-size: 18px;
   font-weight: 900;
 }
-  transition: all 0.15s ease;
+
+
+/* ==========================================================================
+   Quiz Section Styling
+   ========================================================================== */
+.quiz-section {
+  padding: 48px 0;
 }
 
-.editor-body-toolbar button:hover {
-  background: #f1f5f9;
-  border-color: #94a3b8;
+.quiz-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 36px;
+  box-shadow: var(--shadow);
 }
 
-.editor-body-toolbar .small {
+.quiz-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.quiz-header h2 {
+  font-size: 24px;
+  font-weight: 900;
+  color: var(--ink);
+  margin: 0 0 8px 0;
+}
+
+.quiz-header p {
+  font-size: 14px;
+  color: var(--muted);
   margin: 0;
-  color: #64748b;
-  margin-left: auto;
-  font-style: italic;
 }
 
-.image-toolbox {
-  display: grid;
-  grid-template-columns: minmax(220px, 1fr) minmax(220px, 1fr) auto;
-  gap: 12px;
-  align-items: end;
-  padding: 14px;
-  border: 1px dashed #cfd6df;
-  border-radius: 8px;
-  background: #f8fafc;
+.quiz-step {
+  display: none;
 }
 
-.editor-actions {
-  justify-content: flex-end;
-  margin-top: 18px;
+.quiz-step.active {
+  display: block;
+  animation: quizFadeIn 0.3s forwards;
 }
 
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
+.step-badge {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  color: var(--green);
+  background: rgba(15, 138, 104, 0.08);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
 }
 
-.full {
-  grid-column: 1 / -1;
-}
-
-@media (max-width: 900px) {
-  .nav {
-    align-items: flex-start;
-    flex-direction: column;
-    padding: 14px 20px;
-  }
-
-  .nav-links {
-    width: 100%;
-    overflow-x: auto;
-    padding-bottom: 4px;
-  }
-
-  .hero-inner,
-  .admin-layout {
-    grid-template-columns: 1fr;
-  }
-
-  .hero h1 {
-    font-size: 39px;
-  }
-
-  .grid,
-  .grid.two,
-  .grid.four,
-  .mini-grid,
-  .filter-grid,
-  .schedule-row,
-  .editor-grid,
-  .image-toolbox,
-  .form-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .admin-topbar {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-
-  .section-title,
-  .footer-inner {
-    align-items: flex-start;
-    grid-template-columns: 1fr;
-    flex-direction: column;
-  }
-}
-
-/* ==========================================================================
-   Rental vs Buy Calculator Styling
-   ========================================================================== */
-.calc-card {
-  background: rgba(255, 255, 255, 0.95) !important;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.7);
-  box-shadow: 0 20px 40px rgba(8, 42, 37, 0.16);
-  border-radius: 12px;
-  padding: 24px;
-}
-
-.calc-card h2 {
-  font-size: 20px;
+.quiz-step h3 {
+  font-size: 18px;
   font-weight: 800;
   color: var(--ink);
-  margin: 0 0 16px 0 !important;
-  border-bottom: 2px solid var(--green);
-  padding-bottom: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  margin: 0 0 20px 0;
 }
 
-.calc-form {
-  display: flex;
-  flex-direction: column;
+.quiz-options {
+  display: grid;
+  grid-template-columns: 1fr;
   gap: 12px;
 }
 
-.calc-field {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.calc-field label {
-  font-size: 13px;
-  font-weight: 800;
-  color: var(--muted);
-}
-
-.calc-field input,
-.calc-field select {
-  min-height: 38px !important;
-  height: 38px;
-  padding: 6px 10px;
-  border-radius: 6px;
+.quiz-option-btn {
+  background: var(--soft);
   border: 1px solid var(--line);
-  background: #fff;
+  color: var(--ink);
+  padding: 16px 20px;
+  border-radius: 10px;
   font-size: 14px;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  font-weight: 700;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.2s ease;
   width: 100%;
 }
 
-.calc-field input:focus,
-.calc-field select:focus {
-  outline: none;
+.quiz-option-btn:hover {
   border-color: var(--green);
-  box-shadow: 0 0 0 3px rgba(15, 138, 104, 0.15);
+  background: rgba(15, 138, 104, 0.04);
+  color: var(--green-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(15, 138, 104, 0.1);
 }
 
-.calc-result {
-  margin-top: 20px;
-  padding: 16px;
-  border-radius: 8px;
+.quiz-option-btn:active {
+  transform: translateY(0);
+}
+
+.quiz-result-box {
   background: var(--soft);
   border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.quiz-result-box p {
+  margin: 0 0 12px 0;
+}
+
+.quiz-result-box p:last-child {
+  margin-bottom: 0;
+}
+
+.quiz-result-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.quiz-result-actions .button {
+  flex: 1;
+  text-align: center;
+  justify-content: center;
+}
+
+@keyframes quizFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   Roadmap Section Styling
+   ========================================================================== */
+.roadmap-section {
+  padding: 48px 0;
+}
+
+.roadmap-timeline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.roadmap-step {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 28px;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(23, 33, 43, 0.02);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.roadmap-step:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.roadmap-step .step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  font-weight: 900;
+  font-size: 15px;
+  margin-bottom: 18px;
+  box-shadow: 0 4px 10px rgba(15, 138, 104, 0.2);
+}
+
+.roadmap-step h3 {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--ink);
+  margin: 0 0 10px 0;
+  line-height: 1.4;
+}
+
+.roadmap-step p {
+  font-size: 13px;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+   Card Ranking Section Styling
+   ========================================================================== */
+.card-ranking-section {
+  padding: 48px 0;
+}
+
+.card-ranking-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.ranking-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 28px 24px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  box-shadow: 0 4px 15px rgba(23, 33, 43, 0.02);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.result-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 14px;
+.ranking-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.ranking-card.highlight {
+  border: 2px solid var(--green);
+  background: linear-gradient(180deg, #ffffff 0%, var(--soft) 100%);
+}
+
+.ranking-badge {
+  align-self: flex-start;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 12px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--green);
+  margin-bottom: 16px;
+}
+
+.ranking-badge.bg-blue {
+  background: var(--blue);
+}
+
+.ranking-badge.bg-grey {
+  background: var(--muted);
+}
+
+.ranking-card h3 {
+  font-size: 16px;
+  font-weight: 850;
   color: var(--ink);
+  margin: 0 0 14px 0;
 }
 
-.result-row span {
+.card-perks {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.6;
   color: var(--muted);
-  font-weight: 700;
 }
 
-.result-row strong {
-  font-size: 15px;
-  font-weight: 800;
+.card-perks li {
+  margin-bottom: 8px;
+  position: relative;
+  padding-left: 14px;
 }
 
-.result-row.highlight {
-  margin-top: 6px;
-  padding-top: 10px;
-  border-top: 1px dashed var(--line);
+.card-perks li:last-child {
+  margin-bottom: 0;
 }
 
-.result-row.highlight span {
-  font-weight: 800;
-  color: var(--ink);
-}
-
-.result-row.highlight strong {
-  font-size: 18px;
+.card-perks li::before {
+  content: "•";
+  color: var(--green);
   font-weight: 900;
+  position: absolute;
+  left: 0;
+  font-size: 14px;
 }
 
 .text-green {
