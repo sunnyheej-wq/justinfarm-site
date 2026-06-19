@@ -260,6 +260,71 @@ function initQuiz() {
     });
   }
 
+  // Print Result Card
+  const printBtn = document.getElementById("quiz-print-btn");
+  if (printBtn) {
+    printBtn.addEventListener("click", () => {
+      printQuizResult();
+    });
+  }
+
+  function printQuizResult() {
+    const printArea = document.getElementById("quiz-result-print-area");
+    if (!printArea) return;
+
+    const hhText = state.household === "single" ? "1인 가구 (자취/원룸)" : state.household === "couple" ? "2인 가구 (신혼/동거)" : "3인 이상 대가족";
+    const mgText = state.management === "self" ? "자가관리 (셀프 필터 교체)" : "방문관리 (전문가 주기적 케어)";
+    const pdText = state.product === "water" ? "정수기 (직수/온수)" : state.product === "air" ? "공기청정기 (미세먼지 케어)" : "비데 (살균/위생)";
+
+    const dateStr = new Date().toLocaleDateString("ko-KR", { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+    const adviceContent = document.getElementById("quiz-result-text").innerHTML;
+    const guideTitle = document.getElementById("quiz-result-link").textContent;
+    const guideUrl = document.getElementById("quiz-result-link").getAttribute("href");
+
+    printArea.innerHTML = `
+      <div style="border: 2px solid #0f8a68; padding: 30px; border-radius: 12px; font-family: sans-serif; line-height: 1.6; max-width: 800px; margin: 40px auto; background: #fff;">
+        <h1 style="color: #0f8a68; border-bottom: 2px solid #0f8a68; padding-bottom: 12px; margin-top: 0; font-size: 24px; text-align: center;">가전 렌탈 맞춤 자가진단 결과 보고서</h1>
+        <p style="text-align: right; font-size: 12px; color: #667485;">진단 일시: ${dateStr}</p>
+        
+        <h3 style="border-left: 4px solid #0f8a68; padding-left: 10px; color: #17212b; margin-top: 24px;">1. 진단 고객 선택 항목</h3>
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+          <tr style="border-bottom: 1px solid #dce5e2;">
+            <th style="text-align: left; padding: 10px; width: 30%; color: #667485; font-size: 14px;">가구 구성원</th>
+            <td style="padding: 10px; font-weight: bold; color: #17212b; font-size: 14px;">${hhText}</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #dce5e2;">
+            <th style="text-align: left; padding: 10px; color: #667485; font-size: 14px;">선호 관리형태</th>
+            <td style="padding: 10px; font-weight: bold; color: #17212b; font-size: 14px;">${mgText}</td>
+          </tr>
+          <tr style="border-bottom: 1px solid #dce5e2;">
+            <th style="text-align: left; padding: 10px; color: #667485; font-size: 14px;">관심 가전품목</th>
+            <td style="padding: 10px; font-weight: bold; color: #17212b; font-size: 14px;">${pdText}</td>
+          </tr>
+        </table>
+        
+        <h3 style="border-left: 4px solid #0f8a68; padding-left: 10px; color: #17212b; margin-top: 24px;">2. 맞춤형 렌탈 가이드 분석</h3>
+        <div style="background: #f5f8f7; padding: 20px; border-radius: 8px; border: 1px solid #dce5e2; font-size: 14px; color: #17212b; margin-bottom: 24px;">
+          ${adviceContent}
+        </div>
+        
+        <h3 style="border-left: 4px solid #0f8a68; padding-left: 10px; color: #17212b; margin-top: 24px;">3. 추천 정밀 분석 가이드</h3>
+        <p style="font-size: 14px; color: #667485; margin-bottom: 16px;">선택하신 가전렌탈 항목에 대한 합리적 약정 및 수수료 분석이 완료되었습니다. 자세한 비교 내용은 아래 오리지널 가이드에서 더 읽어보실 수 있습니다.</p>
+        <div style="text-align: center; margin: 20px 0;">
+          <a href="${location.origin}${guideUrl}" target="_blank" style="display: inline-block; padding: 12px 24px; background: #0f8a68; color: #fff; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 15px;">
+            ${guideTitle} 바로가기
+          </a>
+        </div>
+        
+        <div style="border-top: 1px dashed #dce5e2; margin-top: 40px; padding-top: 16px; text-align: center; font-size: 11px; color: #667485;">
+          본 보고서는 스마트 가전 렌탈 분석 미디어 <strong>렌탈클리어</strong>(justinfarm.com)에서 실시간 연산되었습니다.
+        </div>
+      </div>
+    `;
+
+    window.print();
+  }
+
   function renderResult() {
     const resultTextEl = document.getElementById("quiz-result-text");
     const resultLinkEl = document.getElementById("quiz-result-link");
@@ -323,5 +388,62 @@ function initQuiz() {
   }
 }
 
+async function renderCardRanking() {
+  const gridEl = document.getElementById("card-ranking-grid");
+  if (!gridEl) return;
+
+  try {
+    const response = await fetch("/data/card-ranking.json");
+    if (!response.ok) throw new Error("카드 데이터를 불러오는데 실패했습니다.");
+    const cards = await response.json();
+
+    let html = "";
+    cards.forEach((card) => {
+      const badgeClass = card.rank === 1 ? "" : card.rank === 2 ? "bg-blue" : "bg-grey";
+      const highlightClass = card.highlight ? "highlight" : "";
+      
+      let benefitsHtml = "";
+      card.benefits.forEach((b) => {
+        benefitsHtml += `<li><strong>${b.spend}:</strong> ${b.discount} (${b.rate})</li>`;
+      });
+
+      let featuresHtml = "";
+      card.features.forEach((f) => {
+        featuresHtml += `<li style="margin-bottom: 6px; padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--green);">✓</span>${f}</li>`;
+      });
+
+      html += `
+        <div class="ranking-card ${highlightClass}">
+          <div class="ranking-badge ${badgeClass}">${card.rank}위 · 피킹률 ${card.peakingRate}</div>
+          <h3>${card.name}</h3>
+          
+          <div class="card-section-title" style="font-size: 12px; font-weight: 800; color: var(--green); margin-top: 12px; margin-bottom: 6px;">[실적 구간별 할인 혜택]</div>
+          <ul class="card-perks" style="margin-bottom: 12px;">
+            ${benefitsHtml}
+          </ul>
+
+          <div class="card-section-title" style="font-size: 12px; font-weight: 800; color: var(--ink); margin-top: 12px; margin-bottom: 6px;">[카드 특장점]</div>
+          <ul class="card-features-list" style="list-style: none; padding: 0; margin: 0; font-size: 13px; color: var(--muted); line-height: 1.6;">
+            ${featuresHtml}
+          </ul>
+          
+          <div class="card-annual-fee" style="font-size: 12px; margin-top: 14px; padding-top: 10px; border-top: 1px dashed var(--line); color: var(--muted);">
+            <strong>연회비:</strong> ${card.annualFee}
+          </div>
+          
+          <div class="card-tip-box" style="margin-top: 14px; padding: 10px; border-radius: 6px; background: var(--soft); font-size: 11px; line-height: 1.5; color: var(--muted); border-left: 3px solid var(--green);">
+            <strong>💡 추천 팁:</strong> ${card.tip}
+          </div>
+        </div>
+      `;
+    });
+
+    gridEl.innerHTML = html;
+  } catch (error) {
+    console.warn("카드 랭킹을 렌더링하지 못했습니다. 기본 정적 데이터를 표시합니다.", error);
+  }
+}
+
 initQuiz();
+renderCardRanking();
 

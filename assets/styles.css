@@ -1453,3 +1453,37 @@ textarea {
     gap: 12px;
   }
 }
+
+/* ==========================================================================
+   Print Layout for Quiz Result Report
+   ========================================================================== */
+.print-only {
+  display: none;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+    background: none !important;
+  }
+  
+  #quiz-result-print-area,
+  #quiz-result-print-area * {
+    visibility: visible;
+  }
+  
+  #quiz-result-print-area {
+    display: block !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Ensure header, footer and other sections don't take up space in print layout */
+  header, footer, nav, aside, section, .hero, .calc-card, .site-header, button {
+    display: none !important;
+  }
+}
