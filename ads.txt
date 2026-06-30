@@ -1,2 +1,1 @@
-# 본인의 구글 애드센스 pub ID(예: pub-xxxxxxxxxxxxxxxx)로 아래 숫자를 변경하여 사용하세요.
 google.com, pub-1049439237599537, DIRECT, f08c47fec0942fa0

@@ -628,13 +628,13 @@ function postToHtml(post) {
   const canonicalSlug = post.slug === "compare" ? "compare" : `blog/${post.slug}`;
   const featuredImage = getFeaturedImage(post);
   const featuredAlreadyInBody = htmlHasImageSrc(post.body, featuredImage);
-  const featuredFigure = featuredAlreadyInBody ? "" : `<figure class="article-image"><img src="${escapeAttr(featuredImage)}" alt="${escapeAttr(post.title)} 대표 이미지" width="1200" height="675" loading="eager" decoding="async"><figcaption>${escapeHtml(post.title)} 판단 기준을 정리한 대표 이미지 <span class="image-credit">사진: 공개 라이선스/스톡 이미지, 편집: 렌탈클리어</span></figcaption></figure>`;
+  const featuredFigure = featuredAlreadyInBody ? "" : `<figure class="article-image"><img src="${escapeAttr(featuredImage)}" alt="${escapeAttr(post.title)} 대표 이미지" width="1200" height="675" loading="eager" decoding="async"><figcaption>${escapeHtml(post.title)} 판단 기준을 정리한 대표 이미지 <span class="image-credit">사진: 공개 라이선스/스톡 이미지, 편집: 렌탈통신다이렉트</span></figcaption></figure>`;
   return `<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>${escapeHtml(post.title)} | 렌탈클리어</title>
+    <title>${escapeHtml(post.title)} | 렌탈통신다이렉트</title>
     <meta name="description" content="${escapeAttr(post.description)}">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <link rel="canonical" href="https://justinfarm.com/${canonicalSlug}/">
@@ -643,7 +643,7 @@ function postToHtml(post) {
   <body>
     <header class="site-header">
       <nav class="nav">
-        <a class="brand" href="/"><span class="brand-mark">R</span>렌탈클리어</a>
+        <a class="brand" href="/"><span class="brand-mark">RT</span>렌탈통신다이렉트</a>
         <div class="nav-links">
           <a href="/compare/">렌탈 비교</a>
           <a href="/blog/">가이드</a>
@@ -664,7 +664,7 @@ function postToHtml(post) {
     </main>
     <footer class="footer">
       <div class="footer-inner">
-        <div>렌탈클리어 · 생활가전 렌탈 정보 블로그<br><span class="small">일부 링크는 제휴 링크이며, 상담 및 계약은 제휴사를 통해 진행됩니다. 렌탈 조건은 상품과 시점에 따라 달라질 수 있습니다.</span></div>
+        <div>렌탈통신다이렉트 · 생활가전 렌탈 정보 블로그<br><span class="small">일부 링크는 제휴 링크이며, 상담 및 계약은 제휴사를 통해 진행됩니다. 렌탈 조건은 상품과 시점에 따라 달라질 수 있습니다.</span></div>
         <div class="footer-links">
           <a href="/about/">소개</a>
           <a href="/contact/">문의</a>

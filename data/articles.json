@@ -1,51 +1,149 @@
 [
   {
-    "title": "가전렌탈 계약 전 체크리스트",
-    "slug": "rental-contract-checklist",
-    "category": "계약 가이드",
-    "summary": "월 렌탈료, 약정 기간, 소유권 이전, 중도해지 비용, 사은품 조건을 계약 전 확인하는 방법을 정리했습니다.",
-    "updatedAt": "2026-05-22"
-  },
-  {
-    "title": "정수기 렌탈 선택 기준",
+    "title": "정수기 렌탈 고르는 법",
     "slug": "water-purifier-rental-guide",
     "category": "정수기",
-    "summary": "직수형, 냉온수, 필터 교체, 방문관리 주기 등 정수기 렌탈 전 꼭 비교해야 할 기준을 설명합니다.",
-    "updatedAt": "2026-05-22"
+    "summary": "정수기 렌탈 전 직수형, 얼음정수기, 자가관리, 방문관리, 필터 교체 주기, 설치 조건, 총 납입액을 비교하는 실전 가이드입니다.",
+    "updatedAt": "2026-06-19"
   },
   {
-    "title": "공기청정기 렌탈 가이드",
+    "title": "공기청정기 렌탈 전 평형대 확인법",
     "slug": "air-purifier-rental-guide",
     "category": "공기청정기",
-    "summary": "평형, 필터 비용, 케어 서비스, 반려동물 환경까지 공기청정기 렌탈 조건을 비교합니다.",
-    "updatedAt": "2026-05-22"
+    "summary": "공기청정기 렌탈 전 사용 면적, 필터 등급, 펫 기능, 방문 케어 주기, 필터 교체 비용을 비교하는 방법입니다.",
+    "updatedAt": "2026-06-19"
   },
   {
-    "title": "비데 렌탈 설치 전 확인사항",
+    "title": "비데 렌탈은 위생 케어가 핵심",
     "slug": "bidet-rental-guide",
     "category": "비데",
-    "summary": "욕실 구조, 전원, 노즐 관리, 방수 등급 등 비데 렌탈 전 확인해야 할 항목을 정리했습니다.",
-    "updatedAt": "2026-05-22"
+    "summary": "비데 렌탈 전 노즐 세척, 방수 등급, 온수 방식, 설치 환경, 방문 케어 주기, 약정 조건을 확인하는 방법입니다.",
+    "updatedAt": "2026-06-19"
   },
   {
-    "title": "렌탈 중도해지 비용 계산 가이드",
-    "slug": "rental-cancellation-fee-guide",
+    "title": "가전렌탈 계약 전 확인할 7가지",
+    "slug": "rental-contract-checklist",
     "category": "계약 가이드",
-    "summary": "잔여 렌탈료, 할인 반환, 설치비, 사은품 반환 조건을 나눠 확인하는 방법입니다.",
-    "updatedAt": "2026-05-22"
+    "summary": "가전렌탈 계약 전 월 렌탈료, 총 납입액, 약정, 중도해지, 소유권 이전, 케어 주기, 사은품 조건을 확인하는 체크리스트입니다.",
+    "updatedAt": "2026-06-19"
   },
   {
     "title": "가전렌탈 설치 전 준비 체크리스트",
     "slug": "rental-installation-guide",
     "category": "설치 가이드",
-    "summary": "전원, 급수, 배수, 공간, 기존 제품 철거 여부를 설치 전에 확인하는 방법입니다.",
-    "updatedAt": "2026-05-22"
+    "summary": "정수기, 비데, 공기청정기, 매트리스 등 가전렌탈 설치 전 전원, 급수, 배수, 공간, 기존 제품 철거 여부를 확인하는 방법입니다.",
+    "updatedAt": "2026-06-19"
+  },
+  {
+    "title": "렌탈 중도해지 비용 계산 가이드",
+    "slug": "rental-cancellation-fee-guide",
+    "category": "계약 가이드",
+    "summary": "가전렌탈 중도해지 시 잔여 렌탈료, 할인 반환, 설치비, 사은품 반환 조건을 확인하는 방법입니다.",
+    "updatedAt": "2026-06-19"
+  },
+  {
+    "title": "렌탈이 유리한 경우와 구매가 유리한 경우",
+    "slug": "rental-vs-buy-guide",
+    "category": "계약 가이드",
+    "summary": "가전제품 렌탈과 구매를 총 납입액, 초기 비용, 관리 서비스, AS, 소유권, 중도해지 조건 기준으로 비교합니다.",
+    "updatedAt": "2026-06-19"
   },
   {
     "title": "방문관리와 자가관리 주기 비교",
     "slug": "rental-maintenance-cycle",
     "category": "관리 가이드",
-    "summary": "정수기, 공기청정기, 비데 등 렌탈 상품의 관리 방식과 필터 교체 주기를 비교합니다.",
-    "updatedAt": "2026-05-22"
+    "summary": "정수기, 공기청정기, 비데 등 가전렌탈에서 방문관리와 자가관리의 차이, 필터 교체 주기, 관리 편의성을 비교합니다.",
+    "updatedAt": "2026-06-19"
+  },
+  {
+    "title": "삼성 LG TV 렌탈 고르는 법",
+    "slug": "samsung-lg-tv-rental-guide",
+    "category": "TV 렌탈",
+    "summary": "삼성 LG TV 렌탈을 화면 크기, 패널, 설치 공간, 약정, AS, 총 납입액 기준으로 비교하는 가이드입니다.",
+    "updatedAt": "2026-06-19"
+  },
+  {
+    "title": "삼성 LG 냉장고 렌탈 선택 기준",
+    "slug": "samsung-lg-refrigerator-rental-guide",
+    "category": "냉장고 렌탈",
+    "summary": "삼성 LG 냉장고 렌탈을 용량, 설치 공간, 에너지 소비, AS, 소유권 이전 기준으로 비교합니다.",
+    "updatedAt": "2026-06-19"
+  },
+  {
+    "title": "김치냉장고 렌탈 뚜껑형 스탠드형 비교",
+    "slug": "kimchi-refrigerator-rental-guide",
+    "category": "김치냉장고",
+    "summary": "김치냉장고 렌탈을 뚜껑형, 스탠드형, 저장 용량, 계절 사용량, 설치 공간 기준으로 비교합니다.",
+    "updatedAt": "2026-06-19"
+  },
+  {
+    "title": "삼성 LG 공기청정기 렌탈 상황별 선택법",
+    "slug": "lg-samsung-air-purifier-rental-guide",
+    "category": "공기청정기",
+    "summary": "삼성 LG 공기청정기 렌탈을 평형, 필터, 펫 기능, 방별 사용 기준으로 비교하는 가이드입니다.",
+    "updatedAt": "2026-06-19"
+  },
+  {
+    "title": "세탁기 건조기 렌탈 전 확인할 기준",
+    "slug": "washer-dryer-rental-guide",
+    "category": "세탁기·건조기",
+    "summary": "세탁기 건조기 렌탈을 설치 공간, 배수, 용량, 전기식 건조 방식, 이전 설치 기준으로 정리했습니다.",
+    "updatedAt": "2026-06-19"
+  },
+  {
+    "title": "식기세척기 렌탈 설치 전 판단 기준",
+    "slug": "dishwasher-rental-guide",
+    "category": "식기세척기",
+    "summary": "식기세척기 렌탈을 6인용, 12인용, 빌트인, 프리스탠딩, 급수 배수 조건 기준으로 정리했습니다.",
+    "updatedAt": "2026-06-19"
+  },
+  {
+    "title": "인덕션 전기레인지 렌탈 전 체크리스트",
+    "slug": "induction-range-rental-guide",
+    "category": "인덕션",
+    "summary": "인덕션 렌탈을 전기 증설, 화구 수, 상판 크기, 냄비 호환, 설치 방식 기준으로 비교합니다.",
+    "updatedAt": "2026-06-19"
+  },
+  {
+    "title": "매트리스 렌탈 케어 서비스 선택 기준",
+    "slug": "mattress-rental-guide",
+    "category": "매트리스",
+    "summary": "매트리스 렌탈을 경도, 사이즈, 케어 주기, 위생 관리, 구매 대비 총비용 기준으로 비교합니다.",
+    "updatedAt": "2026-06-19"
+  },
+  {
+    "title": "반려동물 가정 생활가전 렌탈 기준",
+    "slug": "pet-household-appliance-rental-guide",
+    "category": "반려동물 가전",
+    "summary": "반려동물 가정에서 공기청정기, 건조기, 청소기 렌탈을 털, 냄새, 필터, 관리 주기 기준으로 비교합니다.",
+    "updatedAt": "2026-06-19"
+  },
+  {
+    "title": "이사 예정 가전렌탈 이전 설치 가이드",
+    "slug": "moving-home-rental-transfer-guide",
+    "category": "이전 설치",
+    "summary": "이사를 앞둔 사용자가 렌탈 가전 이전 설치, 해지, 재약정, 설치비를 비교하는 방법입니다.",
+    "updatedAt": "2026-06-19"
+  },
+  {
+    "title": "렌탈 제휴카드 할인 극대화 가이드",
+    "slug": "card-discount-guide",
+    "category": "제휴카드 활용법",
+    "summary": "카드사 전월 실적 제외 항목, 실적 채우기 팁, 피킹 스윗스팟을 수학적으로 분석한 실전 가이드.",
+    "updatedAt": "2026-06-19"
+  },
+  {
+    "title": "가전 렌탈 vs 할부 vs 리스 금융 비교",
+    "slug": "rental-vs-lease-finance",
+    "category": "렌탈 금융 분석",
+    "summary": "렌탈, 카드 할부 구매, 리스의 실질 이자율 차이와 신용도 영향 및 장단점을 비교 분석합니다.",
+    "updatedAt": "2026-06-19"
+  },
+  {
+    "title": "반려식물 및 그림 구독 렌탈 시장 가이드",
+    "slug": "plant-art-rental-guide",
+    "category": "신규 라이프 렌탈",
+    "summary": "플랜테리어와 미술품 그림 렌탈 서비스의 가격 조건, 관리 주기 및 법인 혜택을 다룬 아티클입니다.",
+    "updatedAt": "2026-06-19"
   }
 ]

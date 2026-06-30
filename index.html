@@ -1,9 +1,9 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ko">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>렌탈클리어 | 가전렌탈 비교와 생활가전 선택 가이드</title>
+    <title>렌탈통신다이렉트 | 가전렌탈 비교와 생활가전 선택 가이드</title>
     <meta name="description" content="정수기, 공기청정기, 비데, 매트리스, TV, 냉장고 등 생활가전 렌탈을 계약 전 확인할 수 있도록 약정, 관리 주기, 총비용, 설치 조건을 정리한 정보형 블로그입니다.">
     <meta name="robots" content="index,follow,max-image-preview:large">
     <link rel="canonical" href="https://justinfarm.com/">
@@ -12,7 +12,7 @@
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "렌탈클리어",
+        "name": "렌탈통신다이렉트",
         "url": "https://justinfarm.com/",
         "description": "가전렌탈 비교와 생활가전 선택 기준을 정리하는 정보형 블로그",
         "inLanguage": "ko-KR"
@@ -27,14 +27,25 @@
 
       gtag('config', 'G-GL8KV8YQMK');
     </script>
+      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1049439237599537" crossorigin="anonymous"></script>
   </head>
   <body>
     <header class="site-header">
       <nav class="nav">
-        <a class="brand" href="/"><span class="brand-mark">R</span>렌탈클리어</a>
+        <a class="brand" href="/"><span class="brand-mark">RT</span>렌탈통신다이렉트</a>
         <div class="nav-links">
-          <a href="/compare/">렌탈 비교</a>
-          <a href="/blog/">가이드</a>
+          <div class="nav-group rental-group">
+            <span class="nav-group-title">렌탈</span>
+            <a href="/compare/">렌탈 비교</a>
+            <a href="/buying-guide/">구매가이드</a>
+            <a href="/blog/">렌탈 가이드</a>
+          </div>
+          <div class="nav-group telecom-group">
+            <span class="nav-group-title">통신</span>
+            <a href="/category/kt/">KT 인터넷</a>
+            <a href="/category/sk/">SK 인터넷</a>
+            <a href="/category/lg/">LG U+</a>
+          </div>
           <a href="/about/">소개</a>
           <a href="/contact/">문의</a>
           <a class="nav-cta" href="https://partners.ajl.to/lead/rental?partnerId=Y4Z4HOWT" target="_blank" rel="nofollow sponsored noopener">조건 확인</a>
@@ -46,9 +57,9 @@
       <section class="hero">
         <div class="hero-inner">
           <div>
-            <p class="eyebrow">생활가전 렌탈 비교 · 계약 전 체크</p>
-            <h1>렌탈료만 보지 말고, 약정·관리·총비용까지 비교하세요</h1>
-            <p>렌탈클리어는 정수기, 공기청정기, 비데, 매트리스처럼 오래 쓰는 생활가전의 계약 조건을 쉽게 확인할 수 있도록 정리하는 정보형 블로그입니다. 상품 추천보다 먼저 월 납입액, 방문관리, 필터 비용, 소유권 이전, 중도해지 조건을 분리해 설명합니다.</p>
+            <p class="eyebrow">생활가전 렌탈 및 인터넷 결합 스마트 비교</p>
+            <h1>렌탈과 인터넷 통신 요금, 약정·관리·총비용까지 비교하세요</h1>
+            <p>렌탈통신다이렉트는 정수기, 공기청정기, 비데 등 오래 쓰는 생활가전의 렌탈 조건과 KT, SK, LG 통신 3사의 인터넷 가입 혜택을 한눈에 비교하고 쉽게 확인할 수 있도록 정리하는 정보형 포털입니다. 월 납입액, 방문관리, 필터 비용, 제휴카드 할인과 인터넷 결합 혜택까지 분리해 설명합니다.</p>
             <div class="hero-actions">
               <a class="button" href="/compare/">렌탈 비교표 보기</a>
               <a class="button dark" href="/blog/rental-contract-checklist/">계약 체크리스트</a>
@@ -106,60 +117,120 @@
       </section>
 
       <section class="section quiz-section">
-        <div class="quiz-container">
-          <div class="quiz-header">
-            <h2>나에게 맞는 렌탈 가전 자가진단</h2>
-            <p>3개의 간단한 질문에 답하고 나에게 가장 유리한 렌탈 조건과 가전 가이드를 추천받으세요.</p>
+        <div class="quiz-grid">
+          <!-- Rental Quiz Container -->
+          <div class="quiz-container" id="rental-quiz-container">
+            <div class="quiz-header">
+              <h2>나에게 맞는 렌탈 가전 자가진단</h2>
+              <p>3개의 간단한 질문에 답하고 나에게 가장 유리한 렌탈 조건과 가전 가이드를 추천받으세요.</p>
+            </div>
+            <div class="quiz-body" id="quiz-body">
+              <!-- Step 1 -->
+              <div class="quiz-step active" id="quiz-step-1">
+                <span class="step-badge">질문 1 / 3</span>
+                <h3>현재 거주하는 가구 구성원이 어떻게 되시나요?</h3>
+                <div class="quiz-options">
+                  <button type="button" class="quiz-option-btn" data-value="single">1인 가구 (자취/원룸)</button>
+                  <button type="button" class="quiz-option-btn" data-value="couple">2인 가구 (신혼부부/동거)</button>
+                  <button type="button" class="quiz-option-btn" data-value="family">3인 이상 대가족 (다인 가구)</button>
+                </div>
+              </div>
+
+              <!-- Step 2 -->
+              <div class="quiz-step" id="quiz-step-2">
+                <span class="step-badge">질문 2 / 3</span>
+                <h3>선호하는 위생 및 제품 관리 형태는 무엇인가요?</h3>
+                <div class="quiz-options">
+                  <button type="button" class="quiz-option-btn" data-value="self">자가관리 (필터 셀프교체 / 저렴함)</button>
+                  <button type="button" class="quiz-option-btn" data-value="visit">방문관리 (전문가 케어 / 안심 위생)</button>
+                </div>
+              </div>
+
+              <!-- Step 3 -->
+              <div class="quiz-step" id="quiz-step-3">
+                <span class="step-badge">질문 3 / 3</span>
+                <h3>현재 가장 관심이 있거나 필요한 렌탈 품목은?</h3>
+                <div class="quiz-options">
+                  <button type="button" class="quiz-option-btn" data-value="water">정수기 (직수/온수)</button>
+                  <button type="button" class="quiz-option-btn" data-value="air">공기청정기 (미세먼지 케어)</button>
+                  <button type="button" class="quiz-option-btn" data-value="bidet">비데 (살균/위생)</button>
+                </div>
+              </div>
+
+              <!-- Result Step -->
+              <div class="quiz-step" id="quiz-result-step">
+                <h3 class="text-green">🎉 분석 결과 맞춤 추천</h3>
+                <div class="quiz-result-box" id="quiz-result-text">
+                  <!-- Javascript will render results here -->
+                </div>
+                <div class="quiz-result-actions" style="margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap;">
+                  <a href="" class="button" id="quiz-result-link" style="flex: 1 1 auto; min-width: 200px; text-align: center;">추천 가이드 읽어보기</a>
+                  <button type="button" class="button secondary" id="quiz-print-btn" style="flex: 1 1 auto; text-align: center;">결과지 인쇄/PDF 저장</button>
+                  <button type="button" class="button secondary" id="quiz-restart-btn" style="flex: 1 1 auto; text-align: center;">다시 진단하기</button>
+                </div>
+              </div>
+            </div>
           </div>
-          <div class="quiz-body" id="quiz-body">
-            <!-- Step 1 -->
-            <div class="quiz-step active" id="quiz-step-1">
-              <span class="step-badge">질문 1 / 3</span>
-              <h3>현재 거주하는 가구 구성원이 어떻게 되시나요?</h3>
-              <div class="quiz-options">
-                <button type="button" class="quiz-option-btn" data-value="single">1인 가구 (자취/원룸)</button>
-                <button type="button" class="quiz-option-btn" data-value="couple">2인 가구 (신혼부부/동거)</button>
-                <button type="button" class="quiz-option-btn" data-value="family">3인 이상 대가족 (다인 가구)</button>
-              </div>
-            </div>
 
-            <!-- Step 2 -->
-            <div class="quiz-step" id="quiz-step-2">
-              <span class="step-badge">질문 2 / 3</span>
-              <h3>선호하는 위생 및 제품 관리 형태는 무엇인가요?</h3>
-              <div class="quiz-options">
-                <button type="button" class="quiz-option-btn" data-value="self">자가관리 (필터 셀프교체 / 저렴함)</button>
-                <button type="button" class="quiz-option-btn" data-value="visit">방문관리 (전문가 케어 / 안심 위생)</button>
-              </div>
+          <!-- Telecom Quiz Container -->
+          <div class="quiz-container" id="telecom-quiz-container">
+            <div class="quiz-header">
+              <h2>나에게 맞는 인터넷 & TV 자가진단</h2>
+              <p>3개의 간단한 질문에 답하고 나에게 가장 유리한 인터넷 결합 할인 상품을 추천받으세요.</p>
             </div>
-
-            <!-- Step 3 -->
-            <div class="quiz-step" id="quiz-step-3">
-              <span class="step-badge">질문 3 / 3</span>
-              <h3>현재 가장 관심이 있거나 필요한 렌탈 품목은?</h3>
-              <div class="quiz-options">
-                <button type="button" class="quiz-option-btn" data-value="water">정수기 (직수/온수)</button>
-                <button type="button" class="quiz-option-btn" data-value="air">공기청정기 (미세먼지 케어)</button>
-                <button type="button" class="quiz-option-btn" data-value="bidet">비데 (살균/위생)</button>
+            <div class="quiz-body" id="telecom-quiz-body">
+              <!-- Step 1 -->
+              <div class="quiz-step active" id="telecom-quiz-step-1">
+                <span class="step-badge">질문 1 / 3</span>
+                <h3>현재 가족들이 주력으로 사용하는 모바일 통신사는 어디인가요?</h3>
+                <div class="quiz-options">
+                  <button type="button" class="quiz-option-btn" data-value="skt">SKT (SK텔레콤)</button>
+                  <button type="button" class="quiz-option-btn" data-value="kt">KT (케이티)</button>
+                  <button type="button" class="quiz-option-btn" data-value="lg">LG U+ (엘지유플러스)</button>
+                  <button type="button" class="quiz-option-btn" data-value="mvno">알뜰폰 (결합 없음 / 기타)</button>
+                </div>
               </div>
-            </div>
 
-            <!-- Result Step -->
-            <div class="quiz-step" id="quiz-result-step">
-              <h3 class="text-green">🎉 분석 결과 맞춤 추천</h3>
-              <div class="quiz-result-box" id="quiz-result-text">
-                <!-- Javascript will render results here -->
+              <!-- Step 2 -->
+              <div class="quiz-step" id="telecom-quiz-step-2">
+                <span class="step-badge">질문 2 / 3</span>
+                <h3>가족 중 동일 통신사 모바일 회선(휴대폰 수)은 총 몇 개인가요?</h3>
+                <div class="quiz-options">
+                  <button type="button" class="quiz-option-btn" data-value="1">1회선 (본인 단독 사용)</button>
+                  <button type="button" class="quiz-option-btn" data-value="2">2회선 결합 예정</button>
+                  <button type="button" class="quiz-option-btn" data-value="3">3회선 이상 결합 예정</button>
+                </div>
               </div>
-              <div class="quiz-result-actions" style="margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap;">
-                <a href="" class="button" id="quiz-result-link" style="flex: 1 1 auto; min-width: 200px; text-align: center;">추천 가이드 읽어보기</a>
-                <button type="button" class="button secondary" id="quiz-print-btn" style="flex: 1 1 auto; text-align: center;">결과지 인쇄/PDF 저장</button>
-                <button type="button" class="button secondary" id="quiz-restart-btn" style="flex: 1 1 auto; text-align: center;">다시 진단하기</button>
+
+              <!-- Step 3 -->
+              <div class="quiz-step" id="telecom-quiz-step-3">
+                <span class="step-badge">질문 3 / 3</span>
+                <h3>가장 필요한 인터넷 대역폭(속도)과 사용 용도는 무엇인가요?</h3>
+                <div class="quiz-options">
+                  <button type="button" class="quiz-option-btn" data-value="100">100Mbps (가벼운 웹서핑, 유튜브, 1인 가구 실속형)</button>
+                  <button type="button" class="quiz-option-btn" data-value="500">500Mbps (재택근무, 4K 동영상 시청, 3인 이상 다인가구)</button>
+                  <button type="button" class="quiz-option-btn" data-value="1000">1Gbps (대용량 파일 송수신, 온라인 게임 매니아)</button>
+                </div>
+              </div>
+
+              <!-- Result Step -->
+              <div class="quiz-step" id="telecom-quiz-result-step">
+                <h3 class="text-green">🎉 분석 결과 맞춤 추천</h3>
+                <div class="quiz-result-box" id="telecom-quiz-result-text">
+                  <!-- Javascript will render results here -->
+                </div>
+                <div class="quiz-result-actions" style="margin-top: 24px; display: flex; gap: 12px; flex-wrap: wrap;">
+                  <a href="" class="button" id="telecom-quiz-result-link" style="flex: 1 1 auto; min-width: 200px; text-align: center;">추천 가이드 읽어보기</a>
+                  <button type="button" class="button secondary" id="telecom-quiz-print-btn" style="flex: 1 1 auto; text-align: center;">결과지 인쇄/PDF 저장</button>
+                  <button type="button" class="button secondary" id="telecom-quiz-restart-btn" style="flex: 1 1 auto; text-align: center;">다시 진단하기</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- Print Area -->
+        <!-- Print Areas -->
         <div id="quiz-result-print-area" class="print-only"></div>
+        <div id="telecom-quiz-result-print-area" class="print-only"></div>
       </section>
 
       <section class="section">
@@ -170,28 +241,103 @@
           </div>
           <a class="button secondary" href="/compare/">전체 비교 보기</a>
         </div>
-        <div class="grid">
+        <div class="grid five">
           <a class="product-card" href="/blog/water-purifier-rental-guide/">
-            <img data-image-id="water-purifier" src="/assets/photos/water-purifier.jpg" alt="싱크대 위에 놓인 정수기와 주방 공간" width="1200" height="675" loading="eager" decoding="async">
-            <span class="image-credit">사진: Pexels, 편집: 렌탈클리어</span>
+            <img data-image-id="water-purifier" src="/assets/photos/lg-puri-water.png" alt="싱크대 위에 놓인 프리미엄 직수 정수기" width="600" height="600" loading="eager" decoding="async">
             <p class="meta">정수기 렌탈</p>
-            <h3>방문관리와 자가관리 중 무엇이 맞을까요?</h3>
-            <p>직수형, 냉온수 기능, 필터 교체 주기, 관리 방식에 따라 월 비용과 사용 편의가 달라집니다.</p>
+            <h3>방문관리와 자가관리 비교</h3>
+            <p>직수형 기능, 코크 전기분해 자동 살균 주기, 필터 방식별 월 요금을 비교합니다.</p>
           </a>
           <a class="product-card" href="/blog/air-purifier-rental-guide/">
-            <img data-image-id="air-purifier" src="/assets/photos/air-purifier.jpg" alt="거실에 놓인 공기청정기와 소파" width="1200" height="675" loading="eager" decoding="async">
-            <span class="image-credit">사진: Pexels, 편집: 렌탈클리어</span>
+            <img data-image-id="air-purifier" src="/assets/photos/coway-noble-air.png" alt="거실에 놓인 프리미엄 타워 공기청정기" width="600" height="600" loading="eager" decoding="async">
             <p class="meta">공기청정기 렌탈</p>
-            <h3>사용 면적과 필터 비용을 먼저 보세요</h3>
-            <p>거실, 침실, 아이 방, 반려동물 환경에 따라 필요한 청정 면적과 필터 관리 기준이 달라집니다.</p>
+            <h3>권장 평수와 필터 주기 선택</h3>
+            <p>거실 평형 맞춤 권장 용량과 탈취 필터 등급별 케어 주기를 분석합니다.</p>
           </a>
           <a class="product-card" href="/blog/bidet-rental-guide/">
-            <img data-image-id="bathroom-bidet" src="/assets/photos/bathroom-bidet.jpg" alt="욕실에 설치된 비데와 위생 관리가 쉬운 공간" width="1200" height="675" loading="eager" decoding="async">
-            <span class="image-credit">사진: Pexels, 편집: 렌탈클리어</span>
+            <img data-image-id="bathroom-bidet" src="/assets/photos/clean-bidet-bathroom.png" alt="욕실에 설치된 항균 전기분해 비데" width="600" height="600" loading="eager" decoding="async">
             <p class="meta">비데 렌탈</p>
-            <h3>설치 환경과 위생 관리가 핵심입니다</h3>
-            <p>전원 위치, 욕실 구조, 노즐 세척, 방수 등급, 방문관리 조건을 계약 전 확인해야 합니다.</p>
+            <h3>방수 등급과 살균 케어 분석</h3>
+            <p>물청소가 편한 IPX6 방수 등급과 도기 노즐 전기분해 전해수 살균 방식을 대조합니다.</p>
           </a>
+          <a class="product-card" href="/blog/samsung-lg-tv-rental-guide/">
+            <img data-image-id="tv-rental" src="/assets/photos/premium-tv.png" alt="벽걸이 설치된 프리미엄 울트라 OLED TV" width="600" height="600" loading="lazy" decoding="async">
+            <p class="meta">TV 렌탈</p>
+            <h3>화면 크기 및 약정 만료 조건</h3>
+            <p>대형 OLED/QLED TV 크기 비교와 벽걸이 설치 타입별 소유권 이전 비용을 분석합니다.</p>
+          </a>
+          <a class="product-card" href="/blog/samsung-lg-refrigerator-rental-guide/">
+            <img data-image-id="fridge-rental" src="/assets/photos/premium-fridge.png" alt="모던 주방에 빌트인된 비스포크 스타일 냉장고" width="600" height="600" loading="lazy" decoding="async">
+            <p class="meta">냉장고 렌탈</p>
+            <h3>용량 매칭 및 월 렌탈료 대조</h3>
+            <p>양문형·4도어 냉장고 용량 선택과 일시불 대비 장기 약정 총 실지불액 이율을 비교합니다.</p>
+          </a>
+        </div>
+      </section>
+
+      <!-- 인터넷 & 가전렌탈 5분 자가 진단 상황표 -->
+      <section class="section guide-diagnostic-section" id="diagnostic-guide">
+        <div class="section-title">
+          <div>
+            <h2>렌탈 & 인터넷 결합 가입 5분 상황진단표</h2>
+            <p>특정 가전이나 통신사를 먼저 고르면 손해가 생깁니다. 주소지 품질, 가족 모바일 결합, 이사 여부를 먼저 대조하세요.</p>
+          </div>
+        </div>
+        
+        <div class="table-wrapper">
+          <table class="diagnostic-table">
+            <thead>
+              <tr>
+                <th style="width: 20%;">나의 상황</th>
+                <th style="width: 30%;">가장 먼저 확인할 우선순위</th>
+                <th style="width: 25%;">대조해야 할 핵심 기준</th>
+                <th style="width: 25%;">가장 주의해야 할 판단오류</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>신규 입주 및 첫 독립</strong></td>
+                <td>가족 모바일 결합 통신사 매칭 ➡️ 필수 가전 렌탈 결합 할인 설계</td>
+                <td>인터넷+TV 3년 약정 총 비용, 정수기/비데 자가관리 비용</td>
+                <td class="text-red">첫 달 현금 사은품에 눈이 멀어 36개월 총 요금을 무시하는 것</td>
+              </tr>
+              <tr>
+                <td><strong>기존 약정 만료 (3개월 이내)</strong></td>
+                <td>현재 통신사 해지방어(재약정) 조건 🆚 타사 신규 결합 혜택 대조</td>
+                <td>제시받은 상품권 금액, 기기 소유권 이전 만료일 확인</td>
+                <td class="text-red">해지 전화를 해보지 않고 바로 다른 통신사로 번호이동하는 것</td>
+              </tr>
+              <tr>
+                <td><strong>이사 예정 및 이전 설치</strong></td>
+                <td>이사갈 새 주소지의 대칭형 광랜 공급사 확인 ➡️ 이전 설치비 대조</td>
+                <td>이전 설치비 수수료 총액 🆚 기존 해지 위약금 차액 계산</td>
+                <td class="text-red">해외 이사나 신축 건물인데 이전 요청했다가 위약금 내는 것</td>
+              </tr>
+              <tr>
+                <td><strong>가족 모바일 결합 가능</strong></td>
+                <td>가족들의 통신 회선 수 대조 ➡️ 인터넷 기본 통신사 일치화</td>
+                <td>월 모바일 요금제 할인 총액 누적액 (36개월 기준)</td>
+                <td class="text-red">가족 중 1명이 알뜰폰으로 변경해 기존 고액 결합 할인을 깨는 것</td>
+              </tr>
+              <tr>
+                <td><strong>넷플릭스 등 OTT 결합</strong></td>
+                <td>셋톱박스 성능 및 전용 요금제 ➡️ 전용 리모컨 제어 유연성</td>
+                <td>개별 구독 요금 🆚 통신사 셋톱박스 결합 요금 차액 비교</td>
+                <td class="text-red">셋톱박스가 구형이라 4K 화질을 쓰지 못하는 고가 요금제를 가입하는 것</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="diagnostic-notes">
+          <article class="diag-card">
+            <h4>💡 가전렌탈 + 인터넷 결합 혜택 스윗스팟</h4>
+            <p>생활가전 렌탈(정수기, 비데 등)을 통신 3사(KT, SK, LG) 인터넷+TV와 동일한 대리점에서 동시에 결합 가입할 경우, 최대 70~80만 원 상당의 통합 사은품과 추가 제휴카드 연동 할인을 매칭할 수 있습니다. 개별 가입보다 결합 신청이 훨씬 유리합니다.</p>
+          </article>
+          <article class="diag-card">
+            <h4>💡 견적서 확인 시 필수 대조 항목</h4>
+            <p>견적서를 구두나 카톡 메시지가 아닌 정식 양식으로 확인하세요. 월 기본료 외에 셋톱박스 임대료, 와이파이 공유기 대여료, 렌탈 등록비, 그리고 초기 설치 마감 비용이 명시되어 있는지 반드시 더블 체크해야 합니다.</p>
+          </article>
         </div>
       </section>
 
@@ -225,6 +371,96 @@
             </div>
           </div>
         </div>
+      </section>
+
+      <!-- 통신 3사 인터넷+TV 요금 1분 비교표 -->
+      <section class="section internet-compare-section" id="internet-compare">
+        <div class="section-title">
+          <div>
+            <h2>통신 3사 인터넷+TV 1분 비교표</h2>
+            <p>단일 인터넷 요금제와 TV 결합 상품의 약정별 공식 월 요금 및 가이드라인입니다. (가구 결합 전 기본 단가)</p>
+          </div>
+        </div>
+
+        <h3 style="font-size: 18px; margin-bottom: 12px; font-weight: 700; color: var(--green);">1) 100Mbps 속도 (1인 가구, 가벼운 웹 서핑, 유튜브 시청)</h3>
+        <div class="table-wrapper" style="margin-bottom: 30px;">
+          <table class="diagnostic-table">
+            <thead>
+              <tr>
+                <th>통신사</th>
+                <th>상품 구성</th>
+                <th>월 요금 (3년 약정, VAT 포함)</th>
+                <th>사은품 혜택</th>
+                <th>특징 및 요약</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>KT Olleh</strong></td>
+                <td>인터넷 100M + 베이직 TV (236채널)</td>
+                <td><strong>월 38,500원</strong></td>
+                <td>경로별 최대 지급</td>
+                <td>대칭형 회선 비율이 가장 높고 안정적인 품질 제공</td>
+              </tr>
+              <tr>
+                <td><strong>SK Broadband</strong></td>
+                <td>인터넷 100M + 이코노미 TV (184채널)</td>
+                <td><strong>월 34,100원</strong></td>
+                <td>경로별 최대 지급</td>
+                <td>셋톱박스(Smart3) 가성비 우수 및 요금 단가가 가장 저렴</td>
+              </tr>
+              <tr>
+                <td><strong>LG U+</strong></td>
+                <td>인터넷 100M + 베이직 TV (211채널)</td>
+                <td><strong>월 38,500원</strong></td>
+                <td>경로별 최대 지급</td>
+                <td>넷플릭스 및 디즈니+ 전용 요금제 탑재, 와이파이 기본 무상 대여</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h3 style="font-size: 18px; margin-bottom: 12px; font-weight: 700; color: var(--green);">2) 500Mbps 속도 (재택근무, 4K 고화질 스트리밍, 3인 이상 가정)</h3>
+        <div class="table-wrapper">
+          <table class="diagnostic-table">
+            <thead>
+              <tr>
+                <th>통신사</th>
+                <th>상품 구성</th>
+                <th>월 요금 (3년 약정, VAT 포함)</th>
+                <th>사은품 혜택</th>
+                <th>특징 및 요약</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>KT Olleh</strong></td>
+                <td>인터넷 500M + 베이직 TV (236채널)</td>
+                <td><strong>월 44,000원</strong></td>
+                <td>경로별 최대 지급</td>
+                <td>넷플릭스 고화질 동시 접속 지원 및 해외 망 속도 우수</td>
+              </tr>
+              <tr>
+                <td><strong>SK Broadband</strong></td>
+                <td>인터넷 500M + 이코노미 TV (184채널)</td>
+                <td><strong>월 39,600원</strong></td>
+                <td>경로별 최대 지급</td>
+                <td>애플 TV 4K 셋톱박스 연동성 우수 및 온가족 할인 결합률 극대화</td>
+              </tr>
+              <tr>
+                <td><strong>LG U+</strong></td>
+                <td>인터넷 500M + 베이직 TV (211채널)</td>
+                <td><strong>월 44,000원</strong></td>
+                <td>경로별 최대 지급</td>
+                <td>디즈니 플러스, 아이들나라 특화 콘텐츠 연동성 최고 수준</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <p style="font-size: 12px; color: var(--muted); margin-top: 14px; text-align: right;">
+          출처: KT·SKB·LGU+ 각사 공식 약관 기준 (2026년 6월 현재 기준, 결합 할인 및 이벤트에 따라 상이할 수 있습니다.)
+        </p>
       </section>
 
       <section class="section tight">
@@ -337,22 +573,22 @@
         </div>
         <div class="grid">
           <a class="article-card" href="/blog/card-discount-guide/">
-            <img src="/assets/photos/appliance-kitchen.jpg" alt="렌탈 가전 제휴 카드 혜택 극대화" width="1200" height="675" loading="lazy" decoding="async">
-            <span class="image-credit">사진: Pexels, 편집: 렌탈클리어</span>
+            <img src="/assets/photos/card-discount.png" alt="렌탈 가전 제휴 카드 혜택 극대화" width="1200" height="675" loading="lazy" decoding="async">
+            <span class="image-credit">사진: Pexels, 편집: 렌탈통신다이렉트</span>
             <p class="meta">제휴카드 활용법</p>
             <h3>렌탈 제휴카드 할인 극대화 가이드</h3>
             <p>카드사 전월 실적 제외 항목, 실적 채우기 팁, 피킹 스윗스팟을 수학적으로 분석한 실전 가이드.</p>
           </a>
           <a class="article-card" href="/blog/rental-vs-lease-finance/">
-            <img src="/assets/photos/cost-calc.jpg" alt="렌탈 할부 리스 금융 비교 분석" width="1200" height="675" loading="lazy" decoding="async">
-            <span class="image-credit">사진: Pexels, 편집: 렌탈클리어</span>
+            <img src="/assets/photos/lease-finance-compare.png" alt="렌탈 할부 리스 금융 비교 분석" width="1200" height="675" loading="lazy" decoding="async">
+            <span class="image-credit">사진: Pexels, 편집: 렌탈통신다이렉트</span>
             <p class="meta">렌탈 금융 분석</p>
             <h3>가전 렌탈 vs 할부 vs 리스 금융 비교</h3>
             <p>렌탈, 카드 할부 구매, 리스의 실질 이자율 차이와 신용도 영향 및 장단점을 비교 분석합니다.</p>
           </a>
           <a class="article-card" href="/blog/plant-art-rental-guide/">
             <img src="/assets/photos/plant-art.png" alt="반려식물 및 그림 인테리어 렌탈 시장" width="1200" height="675" loading="lazy" decoding="async">
-            <span class="image-credit">사진: 렌탈클리어</span>
+            <span class="image-credit">사진: 렌탈통신다이렉트</span>
             <p class="meta">신규 라이프 렌탈</p>
             <h3>반려식물 및 그림 구독 렌탈 시장 가이드</h3>
             <p>플랜테리어와 미술품 그림 렌탈 서비스의 가격 조건, 관리 주기 및 법인 혜택을 다룬 아티클입니다.</p>
@@ -363,7 +599,7 @@
 
     <footer class="footer">
       <div class="footer-inner">
-        <div>렌탈클리어 · 생활가전 렌탈 정보 블로그<br><span class="small">일부 링크는 제휴 링크이며, 상담 및 계약은 제휴사를 통해 진행됩니다. 렌탈 조건은 상품과 시점에 따라 달라질 수 있습니다.</span></div>
+        <div>렌탈통신다이렉트 · 생활가전 렌탈 정보 블로그<br><span class="small">일부 링크는 제휴 링크이며, 상담 및 계약은 제휴사를 통해 진행됩니다. 렌탈 조건은 상품과 시점에 따라 달라질 수 있습니다.</span></div>
         <div class="footer-links">
           <a href="/about/">소개</a>
           <a href="/contact/">문의</a>
@@ -376,3 +612,4 @@
     <script src="/assets/app.js?v=20260619"></script>
   </body>
 </html>
+
